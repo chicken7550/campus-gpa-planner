@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="과목별 학점으로 이번 학기 평균 평점을 계산하고, 원하는 누적 평점을 위한 다음 학기 목표 성적을 계산해 보세요.">
+  <meta name="theme-color" content="#101827">
+  <title>학점 설계 — 이번 학기 평점과 목표 성적 계산기</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--panel2:#1b2739;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2;--blue:#9bc4ff;--warn:#ffcf8c;--danger:#ff9c9c}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+    .wrap{width:min(1040px,calc(100% - 32px));margin:auto}.top{padding:42px 0 24px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.top h1{font-size:clamp(32px,6vw,54px);letter-spacing:-.045em;line-height:1.07;margin:12px 0}.top p{color:var(--muted);max-width:660px;margin:0;font-size:17px}
+    .grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,.8fr);gap:18px;align-items:start}.card{background:linear-gradient(155deg,rgba(27,39,57,.98),rgba(20,29,44,.98));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 50px #0002}.card h2{font-size:19px;margin:0 0 14px;letter-spacing:-.02em}.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:16px}.field{display:grid;gap:6px;flex:1;min-width:140px}.field label,.small-label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.course input,.course select{background:#101827;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;padding:10px 11px;min-width:0;width:100%;outline:none}.field input:focus,.field select:focus,.course input:focus,.course select:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c}
+    .table-head,.course{display:grid;grid-template-columns:minmax(90px,1.3fr) minmax(74px,.62fr) minmax(105px,.85fr) 38px;gap:9px;align-items:center}.table-head{padding:0 2px 7px;color:var(--muted);font-size:11px;font-weight:800}.course{margin:0 0 9px}.remove{border:1px solid var(--line);background:#101827;color:#aebbd0;border-radius:10px;width:38px;height:42px;font-size:19px;cursor:pointer}.remove:hover{color:var(--danger);border-color:#81535a}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.btn{border:0;border-radius:10px;background:var(--mint);color:#09251e;font-weight:800;padding:11px 15px;cursor:pointer;font:inherit}.btn.secondary{background:#25364d;color:var(--text);border:1px solid #354761}.btn:hover{filter:brightness(1.06)}
+    .result-card{position:sticky;top:16px}.metric{padding:16px 0;border-bottom:1px solid var(--line)}.metric:last-of-type{border-bottom:0}.metric .label{color:var(--muted);font-size:13px}.metric strong{display:block;font-size:37px;letter-spacing:-.04em;line-height:1.2;margin-top:4px}.metric strong.mint{color:var(--mint)}.note{font-size:13px;color:var(--muted);margin:13px 0 0}.message{min-height:26px;color:var(--warn);font-size:13px;margin-top:7px}.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:17px;padding-top:17px;border-top:1px solid var(--line)}.target-grid .field{min-width:0}.target-output{background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px}.target-output span{display:block;font-size:12px;color:var(--muted)}.target-output strong{display:block;font-size:22px;margin-top:3px}.section{margin-top:18px}.explain{margin:24px 0 44px}.explain h2{font-size:22px}.explain p,.explain li{color:#c3cedd}.explain details{border-top:1px solid var(--line);padding:15px 0}.explain summary{cursor:pointer;font-weight:750}.footer{color:#8493a7;font-size:12px;padding:0 0 28px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:12px 6px 0 0}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}.result-card{position:static;order:-1}.top{padding-top:30px}.card{padding:17px}.table-head,.course{grid-template-columns:minmax(76px,1.15fr) minmax(64px,.55fr) minmax(92px,.8fr) 34px;gap:6px}.remove{width:34px}.metric strong{font-size:32px}}
+    @media(max-width:420px){.wrap{width:calc(100% - 20px)}.card{padding:14px}.table-head,.course{grid-template-columns:minmax(64px,1fr) 58px minmax(82px,.9fr) 30px;gap:5px}.course input,.course select{padding:9px 7px;font-size:14px}.remove{width:30px;height:40px}.table-head{font-size:10px}.target-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <header class="wrap top">
+    <div class="eyebrow">CAMPUS TOOL · FREE</div>
+    <h1>이번 학기 성적,<br>미리 계산해보기</h1>
+    <p>과목과 학점을 입력하면 학기 평균을 계산하고, 원하는 누적 평점을 위한 다음 학기 목표도 확인할 수 있어요.</p>
+    <span class="pill">가입 없이 사용</span><span class="pill">입력 내용은 이 브라우저에만 저장</span>
+  </header>
+  <main class="wrap grid">
+    <section class="card" aria-labelledby="courses-title">
+      <h2 id="courses-title">이번 학기 과목</h2>
+      <div class="controls">
+        <div class="field"><label for="scale">평점 기준</label><select id="scale"><option value="4.5">4.5 만점</option><option value="4.3">4.3 만점</option></select></div>
+      </div>
+      <div class="table-head" aria-hidden="true"><span>과목명</span><span>학점</span><span>성적</span><span></span></div>
+      <div id="courses"></div>
+      <div class="actions"><button class="btn" id="add">＋ 과목 추가</button><button class="btn secondary" id="clear">과목 비우기</button></div>
+      <p class="note">P/F 과목, 재수강 처리, 학교별 환산 기준은 학교 규정에 따라 다를 수 있어요.</p>
+    </section>
+    <aside class="card result-card" aria-labelledby="result-title">
+      <h2 id="result-title">계산 결과</h2>
+      <div class="metric"><span class="label">이번 학기 평점</span><strong class="mint" id="semester">—</strong></div>
+      <div class="metric"><span class="label">이번 학기 이수 학점</span><strong id="credits">0</strong></div>
+      <div class="message" id="status" role="status"></div>
+      <div class="section">
+        <h2>누적 목표 계산</h2>
+        <div class="target-grid">
+          <div class="field"><label for="currentGpa">현재 누적 평점</label><input id="currentGpa" type="number" min="0" max="4.5" step="0.01" placeholder="예: 3.20"></div>
+          <div class="field"><label for="currentCredits">현재 이수 학점</label><input id="currentCredits" type="number" min="0" step="1" placeholder="예: 45"></div>
+          <div class="field"><label for="targetGpa">원하는 누적 평점</label><input id="targetGpa" type="number" min="0" max="4.5" step="0.01" value="3.50"></div>
+          <div class="field"><label for="nextCredits">다음 학기 신청 학점</label><input id="nextCredits" type="number" min="1" step="1" value="18"></div>
+        </div>
+        <div class="target-output"><span>다음 학기에 필요한 평균</span><strong id="needed">정보를 입력해 주세요</strong></div>
+        <p class="note">누적 평점은 단순 평균이 아니라 이수 학점으로 가중 계산합니다.</p>
+      </div>
+    </aside>
+  </main>
+  <section class="wrap card explain">
+    <h2>계산 방법</h2>
+    <details open><summary>이번 학기 평점은 어떻게 계산하나요?</summary><p>과목별 평점에 과목 학점을 곱한 뒤 모두 더하고, 총 신청 학점으로 나눕니다. 예를 들어 3학점 과목에서 4.0, 2학점 과목에서 3.5를 받으면 (3×4.0 + 2×3.5) ÷ 5로 계산합니다.</p></details>
+    <details><summary>목표 누적 평점 계산은 정확한가요?</summary><p>현재 누적 평점과 이수 학점을 기준으로 다음 학기 필요한 평균을 단순 계산합니다. 재수강, P/F, 학점 인정, 학교별 반올림 방식은 반영하지 않으므로 공식 성적표와 학사 규정을 확인하세요.</p></details>
+    <details><summary>입력한 과목 정보는 저장되나요?</summary><p>입력 정보는 편의를 위해 현재 브라우저의 로컬 저장소에만 보관됩니다. 이 페이지는 입력 데이터를 서버로 보내지 않습니다. 공용 기기에서는 사용 후 과목을 비워 주세요.</p></details>
+  </section>
+  <footer class="wrap footer">학점 설계는 참고용 계산 도구입니다. 공식 성적 산출은 소속 학교의 학사 규정을 확인하세요.</footer>
+  <script>
+    const gradeValues = {
+      "4.5": [["A+",4.5],["A0",4.0],["B+",3.5],["B0",3.0],["C+",2.5],["C0",2.0],["D+",1.5],["D0",1.0],["F",0]],
+      "4.3": [["A+",4.3],["A0",4.0],["B+",3.3],["B0",3.0],["C+",2.3],["C0",2.0],["D+",1.3],["D0",1.0],["F",0]]
+    };
+    const coursesEl = document.querySelector('#courses');
+    const scaleEl = document.querySelector('#scale');
+    const key = 'campus-gpa-tool-v1';
+    let courses = [];
+    try { const saved = JSON.parse(localStorage.getItem(key) || '{}'); courses = Array.isArray(saved.courses) ? saved.courses : []; if (saved.scale) scaleEl.value = saved.scale; } catch {}
+    function options(selected='') { return '<option value="">선택</option>' + gradeValues[scaleEl.value].map(([label,val]) => `<option value="${val}" ${String(val)===String(selected)?'selected':''}>${label} (${val.toFixed(1)})</option>`).join(''); }
+    function save() { try { localStorage.setItem(key, JSON.stringify({scale:scaleEl.value,courses})); } catch {} }
+    function render() {
+      coursesEl.innerHTML = courses.map((c,i) => `<div class="course"><input aria-label="${i+1}번 과목명" data-i="${i}" data-k="name" value="${escapeHtml(c.name||'')}" placeholder="과목명"><input aria-label="${i+1}번 학점" data-i="${i}" data-k="credits" type="number" min="0" step="0.5" value="${escapeHtml(c.credits||'')}" placeholder="3"><select aria-label="${i+1}번 성적" data-i="${i}" data-k="grade">${options(c.grade)}</select><button class="remove" data-remove="${i}" aria-label="과목 삭제">×</button></div>`).join('');
+      calculate();
+    }
+    function escapeHtml(value) { return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function calculate() {
+      let total=0, credits=0, incomplete=0;
+      for (const c of courses) { const cr=Number(c.credits); if (cr>0 && c.grade!=='') { total += cr*Number(c.grade); credits += cr; } else if (cr>0 || c.grade!=='') incomplete++; }
+      document.querySelector('#semester').textContent = credits ? (total/credits).toFixed(2) : '—';
+      document.querySelector('#credits').textContent = credits.toFixed(1).replace(/\.0$/,'');
+      document.querySelector('#status').textContent = incomplete ? '학점이나 성적을 선택하지 않은 과목은 평균에서 제외했어요.' : '';
+      const current=Number(document.querySelector('#currentGpa').value), oldCr=Number(document.querySelector('#currentCredits').value), target=Number(document.querySelector('#targetGpa').value), nextCr=Number(document.querySelector('#nextCredits').value), max=Number(scaleEl.value);
+      const out=document.querySelector('#needed');
+      if (!Number.isFinite(current) || !oldCr || !Number.isFinite(target) || !nextCr || current<0 || oldCr<0 || nextCr<=0) { out.textContent='정보를 입력해 주세요'; return; }
+      const required=(target*(oldCr+nextCr)-current*oldCr)/nextCr;
+      if (required>max+1e-9) out.textContent=`${required.toFixed(2)} — 한도 초과`;
+      else if (required<=0) out.textContent='이미 목표를 달성했어요';
+      else out.textContent=`${required.toFixed(2)} / ${max.toFixed(1)}`;
+    }
+    coursesEl.addEventListener('input', e => { const el=e.target; if (!el.dataset.i) return; courses[Number(el.dataset.i)][el.dataset.k]=el.value; save(); calculate(); });
+    coursesEl.addEventListener('change', e => { const el=e.target; if (!el.dataset.i) return; courses[Number(el.dataset.i)][el.dataset.k]=el.value; save(); calculate(); });
+    coursesEl.addEventListener('click', e => { const i=e.target.dataset.remove; if (i===undefined) return; courses.splice(Number(i),1); save(); render(); });
+    document.querySelector('#add').addEventListener('click', () => { courses.push({name:'',credits:'',grade:''}); save(); render(); coursesEl.lastElementChild?.querySelector('input')?.focus(); });
+    document.querySelector('#clear').addEventListener('click', () => { courses=[]; save(); render(); });
+    scaleEl.addEventListener('change', () => { courses=courses.map(c=>({...c,grade:''})); document.querySelector('#targetGpa').max=scaleEl.value; document.querySelector('#currentGpa').max=scaleEl.value; save(); render(); });
+    document.querySelectorAll('.target-grid input').forEach(el=>el.addEventListener('input',calculate));
+    if (!courses.length) courses=[{name:'',credits:'',grade:''}];
+    render();
+  </script>
+</body>
+</html>
