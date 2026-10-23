@@ -2,6 +2,9 @@
 
 대학생이 학점과 생활 계획을 한곳에서 정리할 수 있는 무료 정적 웹 도구입니다. 별도 서버나 유료 API 없이 동작하며, 입력 내용은 사용자의 브라우저에만 저장됩니다.
 
+**공개 페이지:** https://chicken7550.github.io/campus-gpa-planner/  
+**AI 업무 프롬프트 도구:** https://chicken7550.github.io/campus-gpa-planner/workflows.html
+
 ## 들어 있는 도구
 
 - 학기 평점 및 누적 평점 목표 계산
@@ -12,11 +15,14 @@
 - 장학금 신청 준비 체크리스트
 - 세션 목표 입력, 15·25·50분 집중 타이머, 오늘 완료 횟수와 7일 기록
 - 주간 목표·실행·장애물·다음 행동 자기 점검
+- AI 업무 프롬프트 생성, 복사·Markdown 다운로드, 즐겨찾기 저장
 - 인쇄 및 PDF 저장, 페이지 주소 복사
+
+`workflows.html`에서 학습 계획, 고객 문의, 상품 소개, SNS 게시물용 프롬프트를 입력값에 맞춰 만들 수 있습니다. AI API를 호출하지 않으며, 즐겨찾기는 브라우저에만 저장됩니다.
 
 ## 무료 배포
 
-1. GitHub 저장소의 최상위에 `index.html`을 올립니다.
+1. GitHub 저장소의 최상위에 `index.html`, `workflows.html`, `README.md`를 올립니다.
 2. **Settings → Pages**에서 `Deploy from a branch`, `main`, `/(root)`를 선택합니다.
 3. 생성된 `github.io` 주소를 열어 페이지가 배포됐는지 확인합니다.
 

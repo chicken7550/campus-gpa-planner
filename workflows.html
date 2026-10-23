@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="학습 계획, 고객 문의, 상품 소개, SNS 게시물에 쓸 한국어 AI 업무 프롬프트를 무료로 만들고 저장하세요.">
+  <meta name="theme-color" content="#101827">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="K-Workflows — AI 업무 프롬프트 도구">
+  <meta property="og:description" content="입력한 정보로 맞춤 프롬프트를 만들고 복사하거나 Markdown으로 저장하세요. AI 호출 없이 브라우저에서 작동합니다.">
+  <link rel="canonical" href="https://chicken7550.github.io/campus-gpa-planner/workflows.html">
+  <title>K-Workflows — AI 업무 프롬프트 도구</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--panel2:#1b2739;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2;--blue:#9bc4ff;--warn:#ffcf8c;--danger:#ff9c9c}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(1040px,calc(100% - 32px));margin:auto}.top{padding:34px 0 22px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.14em}.top h1{font-size:clamp(32px,6vw,48px);letter-spacing:-.045em;line-height:1.08;margin:10px 0}.top p{color:var(--muted);max-width:710px;margin:0;font-size:16px}.top-link{display:inline-flex;margin-top:15px;color:var(--mint);font-weight:750;text-decoration:none}.top-link:hover{text-decoration:underline}.pills{margin-top:13px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:0 6px 0 0}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}.card{background:linear-gradient(155deg,rgba(27,39,57,.98),rgba(20,29,44,.98));border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:0 18px 50px #0002}.card h2{font-size:19px;margin:0 0 8px;letter-spacing:-.02em}.muted{color:var(--muted);font-size:13px;margin:0 0 15px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.field textarea{background:#101827;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;padding:10px 11px;min-width:0;width:100%;outline:none}.field textarea{min-height:76px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.output:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c}.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.btn{border:0;border-radius:10px;background:var(--mint);color:#09251e;font-weight:800;padding:10px 14px;cursor:pointer;font:inherit}.btn.secondary{background:#25364d;color:var(--text);border:1px solid #354761}.btn:hover{filter:brightness(1.06)}.output{width:100%;min-height:390px;resize:vertical;background:#101827;border:1px solid var(--line);border-radius:12px;color:#e5edf7;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;padding:14px;outline:none}.status{min-height:21px;color:var(--mint);font-size:13px;margin:8px 0 0}.callout{border:1px solid #354761;background:#101827;border-radius:12px;padding:12px;color:#c3cedd;margin-top:13px;font-size:13px}.favorites{margin:18px 0 36px}.favorite-list{display:grid;gap:9px;margin-top:12px}.favorite{display:flex;gap:12px;align-items:center;justify-content:space-between;background:#101827;border:1px solid var(--line);border-radius:12px;padding:11px 13px}.favorite-title{font-weight:750;overflow-wrap:anywhere}.favorite small{color:var(--muted)}.favorite-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:end}.mini{border:1px solid #354761;background:#25364d;color:var(--text);border-radius:8px;padding:6px 9px;cursor:pointer;font:inherit;font-size:12px}.mini.delete{color:#ffb1b1}.empty{color:var(--muted);padding:14px 0;font-size:14px}.footer{color:#8493a7;font-size:12px;padding:0 0 26px}.skip{position:absolute;left:-9999px;top:4px}.skip:focus{left:8px;z-index:20;background:var(--mint);color:#09251e;padding:8px 12px;border-radius:8px}.danger-note{color:#ffcf8c}.template-hint{border-left:3px solid var(--mint);padding:8px 11px;background:#101827;color:#c3cedd;border-radius:0 9px 9px 0;font-size:13px;margin:12px 0}
+    @media(max-width:760px){.layout{grid-template-columns:1fr}.output{min-height:300px}.card{padding:17px}}
+    @media(max-width:420px){.wrap{width:calc(100% - 20px)}.card{padding:14px}.favorite{align-items:flex-start;flex-direction:column}.favorite-actions{justify-content:flex-start}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 바로가기</a>
+  <header class="wrap top">
+    <div class="eyebrow">K-WORKFLOWS · FREE</div>
+    <h1>반복 업무를<br>AI에게 맡길 준비하기</h1>
+    <p>필요한 정보만 채우면 바로 복사해 쓸 수 있는 한국어 프롬프트를 만듭니다. AI API를 호출하지 않으며 입력한 내용은 이 페이지를 벗어나지 않습니다.</p>
+    <a class="top-link" href="./">← 캠퍼스 툴킷으로 돌아가기</a>
+    <div class="pills"><span class="pill">가입 없이 무료</span><span class="pill">AI API 호출 없음</span><span class="pill">즐겨찾기는 이 브라우저에 저장</span></div>
+  </header>
+  <main class="wrap" id="main">
+    <div class="layout">
+      <section class="card" aria-labelledby="builder-title">
+        <h2 id="builder-title">프롬프트 만들기</h2>
+        <p class="muted">용도와 상황을 고르면 초안이 만들어집니다. 결과를 사용하기 전에 사실과 약속을 직접 확인하세요.</p>
+        <div class="field"><label for="template">사용 목적</label><select id="template"></select></div>
+        <div id="templateHint" class="template-hint"></div>
+        <div id="fields"></div>
+        <div class="btn-row">
+          <button class="btn secondary" id="example" type="button">예시 채우기</button>
+          <button class="btn secondary" id="clear" type="button">입력 비우기</button>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="preview-title">
+        <h2 id="preview-title">생성된 프롬프트</h2>
+        <p class="muted">복사해서 원하는 AI 도구에 붙여 넣으세요. 내용을 입력하면 미리보기가 자동으로 바뀝니다.</p>
+        <label class="field" for="output"><span class="muted">프롬프트 미리보기</span></label>
+        <textarea id="output" class="output" readonly aria-label="생성된 프롬프트"></textarea>
+        <div class="btn-row">
+          <button class="btn" id="copy" type="button">프롬프트 복사</button>
+          <button class="btn secondary" id="download" type="button">Markdown 저장</button>
+          <button class="btn secondary" id="favorite" type="button">즐겨찾기 저장</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <div class="callout"><strong>개인정보 주의:</strong> 고객 이름·연락처, 계정 비밀번호, 주민번호, API 키 등 민감한 정보는 입력하거나 AI에 붙여 넣지 마세요. AI 답변은 틀릴 수 있으니 발송 전 검토하세요.</div>
+      </section>
+    </div>
+    <section class="card favorites" aria-labelledby="favorites-title">
+      <h2 id="favorites-title">내 즐겨찾기</h2>
+      <p class="muted">저장한 프롬프트는 이 브라우저에만 남습니다. 브라우저 데이터를 지우면 함께 삭제될 수 있어요.</p>
+      <div class="favorite-list" id="favoriteList"></div>
+    </section>
+  </main>
+  <footer class="wrap footer">무료 참고 도구 · 결제·광고 기능은 연결되어 있지 않습니다. AI 응답의 정확성과 결과는 사용 전에 직접 확인하세요.</footer>
+  <script>
+    const templates = [
+      {
+        id: "study-plan", group: "학생·개인", title: "한 주 학습 계획", hint: "시험과 과제를 실행 가능한 작은 단계로 나눕니다.",
+        fields: [
+          {key:"goal",label:"이번 주 목표",placeholder:"예: 생물학 3~5장 복습",example:"생물학 중간고사 범위 3~5장 복습"},
+          {key:"time",label:"쓸 수 있는 시간",placeholder:"예: 평일 하루 2시간, 주말 4시간",example:"평일 하루 2시간, 토요일 4시간"},
+          {key:"deadlines",label:"시험·마감 일정",placeholder:"예: 금요일 과제 제출, 다음 주 화요일 시험",example:"금요일 과제 제출, 다음 주 화요일 시험"},
+          {key:"limits",label:"고려할 점",placeholder:"예: 수요일은 아르바이트로 공부 어려움",example:"수요일 저녁은 아르바이트"}
+        ],
+        build:v=>`# 역할\n당신은 현실적인 학습 계획을 돕는 조력자입니다.\n\n# 목표\n${v.goal||"[이번 주 목표를 입력하세요]"}\n\n# 조건\n- 사용 가능 시간: ${v.time||"[시간을 입력하세요]"}\n- 시험·마감: ${v.deadlines||"없음"}\n- 고려할 점: ${v.limits||"없음"}\n\n# 요청\n1. 먼저 마감이 가까운 일과 중요한 일을 구분하세요.\n2. 할 일을 25~50분 안에 끝낼 작은 단계로 나누세요.\n3. 무리한 일정을 만들지 말고 휴식 시간을 남기세요.\n4. 날짜별 계획과 오늘 바로 시작할 첫 행동을 표로 제시하세요.\n5. 정보가 부족하면 사실을 지어내지 말고 질문하세요.`
+      },
+      {
+        id: "customer-reply", group: "가게·1인 사업", title: "고객 문의 답변 초안", hint: "정책에 없는 보상이나 확답을 만들지 않도록 안내합니다.",
+        fields: [
+          {key:"business",label:"가게·서비스 설명",placeholder:"예: 온라인 문구점, 배송은 영업일 2~3일",example:"온라인 문구점, 배송은 영업일 기준 2~3일"},
+          {key:"question",label:"문의 내용",placeholder:"민감한 개인정보는 빼고 요지만 입력",example:"주문 상품의 배송 상태를 알고 싶다고 문의함"},
+          {key:"policy",label:"확인된 정책·사실",placeholder:"예: 운송장 발급 후 배송 조회 가능",example:"운송장 등록 후 택배사 사이트에서 조회 가능. 아직 운송장 번호는 확인되지 않음"},
+          {key:"tone",label:"원하는 말투",placeholder:"예: 정중하고 짧게",example:"정중하고 간결하게"}
+        ],
+        build:v=>`# 역할\n당신은 고객 응대를 돕는 글쓰기 조력자입니다.\n\n# 사실 정보\n- 가게·서비스: ${v.business||"[설명을 입력하세요]"}\n- 문의 요지: ${v.question||"[문의 내용을 입력하세요]"}\n- 확인된 정책·사실: ${v.policy||"[확인된 정보만 입력하세요]"}\n- 말투: ${v.tone||"정중하고 명확하게"}\n\n# 작성 지침\n- 확인된 사실만 사용하고, 확인되지 않은 배송일·환불·보상은 약속하지 마세요.\n- 고객의 감정을 인정하되 과장하거나 책임을 단정하지 마세요.\n- 개인정보를 되풀이하지 마세요.\n- 답변 초안과 추가 확인이 필요한 항목을 분리해 제시하세요.`
+      },
+      {
+        id: "product-copy", group: "가게·1인 사업", title: "상품 소개 초안", hint: "입력된 상품 사실만 바탕으로 상세 페이지 문구를 정리합니다.",
+        fields: [
+          {key:"product",label:"상품명·종류",placeholder:"예: 재생지로 만든 무지 노트",example:"재생지로 만든 무지 노트"},
+          {key:"facts",label:"확인된 특징",placeholder:"재료, 크기, 구성 등 사실만 적기",example:"A5 크기, 80매, 재생지 사용, 국내 제작"},
+          {key:"audience",label:"주요 구매자",placeholder:"예: 필기와 스케치를 자주 하는 대학생",example:"필기와 간단한 스케치를 자주 하는 학생"},
+          {key:"cautions",label:"빼야 할 표현",placeholder:"예: 친환경 인증을 받았다고 쓰지 않기",example:"공식 인증을 받은 것처럼 쓰지 않기"}
+        ],
+        build:v=>`# 작업\n온라인 상품 소개 문구의 초안을 작성하세요.\n\n# 상품 정보\n- 상품: ${v.product||"[상품명을 입력하세요]"}\n- 확인된 특징: ${v.facts||"[사실을 입력하세요]"}\n- 주요 구매자: ${v.audience||"[구매자를 입력하세요]"}\n- 사용 금지 표현: ${v.cautions||"없음"}\n\n# 출력 형식\n1. 한 줄 요약\n2. 사실 기반 핵심 특징 3개\n3. 상세 설명 초안\n4. 구매 전에 확인할 정보\n\n입력하지 않은 성능·효과·인증·후기를 지어내지 말고, 확인이 필요한 항목은 별도로 표시하세요.`
+      },
+      {
+        id: "social-post", group: "콘텐츠 제작", title: "SNS 게시물 초안", hint: "플랫폼과 대상에 맞춰 게시물 구조를 잡습니다.",
+        fields: [
+          {key:"topic",label:"게시물 주제·상품",placeholder:"예: 새 학기 다이어리 출시",example:"새 학기용 주간 다이어리 소개"},
+          {key:"audience",label:"읽을 사람",placeholder:"예: 일정 관리를 시작하려는 대학생",example:"새 학기 일정을 정리하려는 대학생"},
+          {key:"channel",label:"게시할 곳",placeholder:"예: 인스타그램",example:"인스타그램"},
+          {key:"tone",label:"말투·길이",placeholder:"예: 친근하고 5문장 이내",example:"친근하고 5문장 이내"}
+        ],
+        build:v=>`# 작업\n아래 정보에 맞춰 SNS 게시물 초안을 작성하세요.\n\n- 주제: ${v.topic||"[주제를 입력하세요]"}\n- 대상: ${v.audience||"[읽을 사람을 입력하세요]"}\n- 플랫폼: ${v.channel||"[플랫폼을 입력하세요]"}\n- 말투·길이: ${v.tone||"[원하는 스타일을 입력하세요]"}\n\n# 지침\n- 첫 문장에서 주제를 분명히 알리세요.\n- 구체적인 사실과 행동 요청을 포함하되, 과장된 효과나 가짜 긴급성을 만들지 마세요.\n- 정보가 없는 가격·할인·재고·후기를 추가하지 마세요.\n- 본문과 해시태그를 구분하고, 해시태그는 관련 있는 것만 제안하세요.`
+      }
+    ];
+    const templateSelect=document.getElementById("template");
+    const fieldsHost=document.getElementById("fields");
+    const output=document.getElementById("output");
+    const status=document.getElementById("status");
+    const favoriteKey="campusToolkit.workflowFavorites.v1";
+    let currentTemplate=templates[0];
+    for(const group of [...new Set(templates.map(item=>item.group))]){
+      const optgroup=document.createElement("optgroup");optgroup.label=group;
+      for(const item of templates.filter(entry=>entry.group===group)){const option=document.createElement("option");option.value=item.id;option.textContent=item.title;optgroup.append(option)}
+      templateSelect.append(optgroup);
+    }
+    function values(){const result={};for(const field of currentTemplate.fields)result[field.key]=document.getElementById(`field-${field.key}`)?.value.trim()||"";return result}
+    function renderPrompt(){output.value=currentTemplate.build(values())}
+    function renderTemplate(){
+      currentTemplate=templates.find(item=>item.id===templateSelect.value)||templates[0];
+      document.getElementById("templateHint").textContent=currentTemplate.hint;
+      fieldsHost.replaceChildren();
+      for(const field of currentTemplate.fields){
+        const wrapper=document.createElement("div");wrapper.className="field";
+        const label=document.createElement("label");label.htmlFor=`field-${field.key}`;label.textContent=field.label;
+        const input=document.createElement(field.key==="question"||field.key==="policy"||field.key==="facts"||field.key==="cautions"||field.key==="limits"?"textarea":"input");
+        input.id=`field-${field.key}`;input.placeholder=field.placeholder;input.setAttribute("aria-label",field.label);
+        input.addEventListener("input",renderPrompt);wrapper.append(label,input);fieldsHost.append(wrapper);
+      }
+      renderPrompt();status.textContent="";
+    }
+    function examples(){for(const field of currentTemplate.fields){const input=document.getElementById(`field-${field.key}`);if(input)input.value=field.example}renderPrompt();status.textContent="예시를 넣었어요. 상황에 맞게 바꿔 쓰세요."}
+    function readFavorites(){try{const value=JSON.parse(localStorage.getItem(favoriteKey)||"[]");return Array.isArray(value)?value:[]}catch{return []}}
+    function saveFavorites(items){localStorage.setItem(favoriteKey,JSON.stringify(items.slice(0,30)))}
+    function renderFavorites(){
+      const list=document.getElementById("favoriteList");list.replaceChildren();const items=readFavorites();
+      if(!items.length){const empty=document.createElement("p");empty.className="empty";empty.textContent="아직 저장한 프롬프트가 없습니다.";list.append(empty);return}
+      for(const item of items){
+        const row=document.createElement("article");row.className="favorite";
+        const info=document.createElement("div");const title=document.createElement("div");title.className="favorite-title";title.textContent=item.title;const date=document.createElement("small");date.textContent=new Date(item.savedAt).toLocaleDateString("ko-KR");info.append(title,date);
+        const actions=document.createElement("div");actions.className="favorite-actions";
+        const copy=document.createElement("button");copy.className="mini";copy.type="button";copy.textContent="복사";copy.addEventListener("click",()=>copyText(item.prompt,"저장한 프롬프트를 복사했어요."));
+        const load=document.createElement("button");load.className="mini";load.type="button";load.textContent="미리보기";load.addEventListener("click",()=>{output.value=item.prompt;output.focus();status.textContent="저장한 프롬프트를 미리보기에 불러왔어요."});
+        const remove=document.createElement("button");remove.className="mini delete";remove.type="button";remove.textContent="삭제";remove.setAttribute("aria-label",`${item.title} 즐겨찾기 삭제`);remove.addEventListener("click",()=>{saveFavorites(readFavorites().filter(entry=>entry.id!==item.id));renderFavorites()});
+        actions.append(copy,load,remove);row.append(info,actions);list.append(row);
+      }
+    }
+    async function copyText(text,message){try{await navigator.clipboard.writeText(text);status.textContent=message}catch{output.focus();output.select();status.textContent="복사가 막혀 있어요. 선택된 내용을 직접 복사해 주세요."}}
+    document.getElementById("example").addEventListener("click",examples);
+    document.getElementById("clear").addEventListener("click",()=>{for(const field of currentTemplate.fields){const input=document.getElementById(`field-${field.key}`);if(input)input.value=""}renderPrompt();status.textContent="입력을 비웠어요."});
+    templateSelect.addEventListener("change",renderTemplate);
+    document.getElementById("copy").addEventListener("click",()=>copyText(output.value,"프롬프트를 복사했어요."));
+    document.getElementById("download").addEventListener("click",()=>{const blob=new Blob([`# ${currentTemplate.title}\n\n${output.value}\n`],{type:"text/markdown;charset=utf-8"});const url=URL.createObjectURL(blob);const link=document.createElement("a");link.href=url;link.download=`${currentTemplate.id}.md`;link.click();URL.revokeObjectURL(url);status.textContent="Markdown 파일을 저장했어요."});
+    document.getElementById("favorite").addEventListener("click",()=>{const items=readFavorites();items.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title:currentTemplate.title,prompt:output.value,savedAt:new Date().toISOString()});saveFavorites(items);renderFavorites();status.textContent="즐겨찾기에 저장했어요."});
+    renderTemplate();examples();renderFavorites();
+  </script>
+</body>
+</html>
