@@ -3,36 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="과목별 학점으로 이번 학기 평균 평점을 계산하고, 원하는 누적 평점을 위한 다음 학기 목표 성적을 계산해 보세요.">
+  <meta name="description" content="대학생을 위한 무료 캠퍼스 툴킷. 학점·생활비·알바 급여·시험 일정·집중 시간과 장학금 준비를 한곳에서 관리하세요.">
   <meta name="theme-color" content="#101827">
-  <title>학점 설계 — 이번 학기 평점과 목표 성적 계산기</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="캠퍼스 툴킷 — 대학생활을 한곳에서">
+  <meta property="og:description" content="학점·생활비·알바 급여·시험 일정·집중 시간을 무료로 관리하세요. 가입 없이 바로 사용할 수 있습니다.">
+  <title>캠퍼스 툴킷 — 대학생 학점·생활비·알바·시험 일정 도구</title>
   <style>
     :root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--panel2:#1b2739;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2;--blue:#9bc4ff;--warn:#ffcf8c;--danger:#ff9c9c}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
     .wrap{width:min(1040px,calc(100% - 32px));margin:auto}.top{padding:42px 0 24px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.top h1{font-size:clamp(32px,6vw,54px);letter-spacing:-.045em;line-height:1.07;margin:12px 0}.top p{color:var(--muted);max-width:660px;margin:0;font-size:17px}
     .grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,.8fr);gap:18px;align-items:start}.card{background:linear-gradient(155deg,rgba(27,39,57,.98),rgba(20,29,44,.98));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 50px #0002}.card h2{font-size:19px;margin:0 0 14px;letter-spacing:-.02em}.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:16px}.field{display:grid;gap:6px;flex:1;min-width:140px}.field label,.small-label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.course input,.course select{background:#101827;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;padding:10px 11px;min-width:0;width:100%;outline:none}.field input:focus,.field select:focus,.course input:focus,.course select:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c}
     .table-head,.course{display:grid;grid-template-columns:minmax(90px,1.3fr) minmax(74px,.62fr) minmax(105px,.85fr) 38px;gap:9px;align-items:center}.table-head{padding:0 2px 7px;color:var(--muted);font-size:11px;font-weight:800}.course{margin:0 0 9px}.remove{border:1px solid var(--line);background:#101827;color:#aebbd0;border-radius:10px;width:38px;height:42px;font-size:19px;cursor:pointer}.remove:hover{color:var(--danger);border-color:#81535a}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.btn{border:0;border-radius:10px;background:var(--mint);color:#09251e;font-weight:800;padding:11px 15px;cursor:pointer;font:inherit}.btn.secondary{background:#25364d;color:var(--text);border:1px solid #354761}.btn:hover{filter:brightness(1.06)}
-    .result-card{position:sticky;top:16px}.metric{padding:16px 0;border-bottom:1px solid var(--line)}.metric:last-of-type{border-bottom:0}.metric .label{color:var(--muted);font-size:13px}.metric strong{display:block;font-size:37px;letter-spacing:-.04em;line-height:1.2;margin-top:4px}.metric strong.mint{color:var(--mint)}.note{font-size:13px;color:var(--muted);margin:13px 0 0}.message{min-height:26px;color:var(--warn);font-size:13px;margin-top:7px}.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:17px;padding-top:17px;border-top:1px solid var(--line)}.target-grid .field{min-width:0}.target-output{background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px}.target-output span{display:block;font-size:12px;color:var(--muted)}.target-output strong{display:block;font-size:22px;margin-top:3px}.section{margin-top:18px}.explain{margin:24px 0 44px}.explain h2{font-size:22px}.explain p,.explain li{color:#c3cedd}.explain details{border-top:1px solid var(--line);padding:15px 0}.explain summary{cursor:pointer;font-weight:750}.footer{color:#8493a7;font-size:12px;padding:0 0 28px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:12px 6px 0 0}
-    @media(max-width:760px){.grid{grid-template-columns:1fr}.result-card{position:static;order:-1}.top{padding-top:30px}.card{padding:17px}.table-head,.course{grid-template-columns:minmax(76px,1.15fr) minmax(64px,.55fr) minmax(92px,.8fr) 34px;gap:6px}.remove{width:34px}.metric strong{font-size:32px}}
+    .result-card{position:sticky;top:16px}.metric{padding:16px 0;border-bottom:1px solid var(--line)}.metric:last-of-type{border-bottom:0}.metric .label{color:var(--muted);font-size:13px}.metric strong{display:block;font-size:37px;letter-spacing:-.04em;line-height:1.2;margin-top:4px}.metric strong.mint{color:var(--mint)}.note{font-size:13px;color:var(--muted);margin:13px 0 0}.message{min-height:26px;color:var(--warn);font-size:13px;margin-top:7px}.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:17px;padding-top:17px;border-top:1px solid var(--line)}.target-grid .field{min-width:0}.target-output{background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:12px}.target-output span{display:block;font-size:12px;color:var(--muted)}.target-output strong{display:block;font-size:22px;margin-top:3px}.section{margin-top:18px}.explain{margin:24px 0 44px}.explain h2{font-size:22px}.explain p,.explain li{color:#c3cedd}.explain details{border-top:1px solid var(--line);padding:15px 0}.explain summary{cursor:pointer;font-weight:750}.footer{color:#8493a7;font-size:12px;padding:0 0 28px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:12px 6px 0 0}.toolkit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}.tool-card{min-width:0}.tool-card .metric strong{font-size:30px}.tool-card .controls{margin:0}.task-form{display:grid;grid-template-columns:minmax(0,1fr) 155px auto;gap:9px;align-items:end}.task-list,.checklist{display:grid;gap:8px;margin-top:13px}.task-row,.check-row{display:flex;gap:10px;align-items:center;background:#101827;border:1px solid var(--line);border-radius:10px;padding:10px 12px}.task-row .task-main{flex:1;min-width:0}.task-row strong{display:block;overflow-wrap:anywhere}.task-row small,.check-row small{color:var(--muted)}.check-row input{width:18px;height:18px;accent-color:var(--mint)}.check-row label{flex:1}.mini-remove{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer}.check-row.done label{text-decoration:line-through;color:var(--muted)}.tool-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.money{font-variant-numeric:tabular-nums}.callout{border:1px solid #354761;background:#101827;border-radius:12px;padding:14px;color:#c3cedd;margin-top:15px}.callout strong{color:var(--text)}
+    .field textarea{background:#101827;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;padding:10px 11px;min-height:76px;resize:vertical;width:100%}.field textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c;outline:none}.focus-clock{font-size:clamp(42px,8vw,62px)!important;font-variant-numeric:tabular-nums;letter-spacing:-.05em}.review-grid{display:grid;gap:10px;margin-top:12px}.review-result{min-height:52px;white-space:pre-wrap}
+    .quick-nav{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow-x:auto;padding:9px max(16px,calc((100vw - 1040px)/2));background:#0c1220ef;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);scrollbar-width:none}.quick-nav::-webkit-scrollbar{display:none}.quick-nav a{flex:0 0 auto;color:#c3cedd;text-decoration:none;border:1px solid #34445a;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700}.quick-nav a:hover,.quick-nav a:focus-visible{color:var(--mint);border-color:var(--mint);outline:none}#grades,#budget,#wage,#calendar,#focus,#scholarships{scroll-margin-top:72px}.focus-intention{margin-top:12px}.week-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;min-height:82px;margin-top:14px}.day-bar{display:grid;gap:5px;text-align:center;align-items:end;color:var(--muted);font-size:10px}.day-bar-track{height:48px;display:flex;align-items:end;background:#182335;border-radius:7px;overflow:hidden}.day-bar-fill{width:100%;min-height:3px;background:linear-gradient(0deg,#44b79a,var(--mint));border-radius:6px 6px 0 0}.day-bar-count{font-size:10px;color:var(--text)}.skip-link{position:absolute;left:-9999px;top:4px}.skip-link:focus{left:8px;z-index:20;background:var(--mint);color:#09251e;padding:8px 12px;border-radius:8px}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}.toolkit{grid-template-columns:1fr}.result-card{position:static;order:-1}.top{padding-top:30px}.card{padding:17px}.table-head,.course{grid-template-columns:minmax(76px,1.15fr) minmax(64px,.55fr) minmax(92px,.8fr) 34px;gap:6px}.remove{width:34px}.metric strong{font-size:32px}}
     @media(max-width:420px){.wrap{width:calc(100% - 20px)}.card{padding:14px}.table-head,.course{grid-template-columns:minmax(64px,1fr) 58px minmax(82px,.9fr) 30px;gap:5px}.course input,.course select{padding:9px 7px;font-size:14px}.remove{width:30px;height:40px}.table-head{font-size:10px}.target-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.task-form{grid-template-columns:1fr 1fr}.task-form .btn{grid-column:1/-1}}
+    @media print{body{background:#fff;color:#111}.top{padding-top:0}.card{background:#fff;color:#111;border:1px solid #bbb;box-shadow:none;break-inside:avoid}.field input,.field select,.course input,.course select,.target-output,.task-row,.check-row{background:#fff;color:#111;border-color:#bbb}.btn,.remove,.mini-remove,.toolbar,.actions{display:none!important}.note,.field label,.small-label,.metric .label,.target-output span,.task-row small,.footer{color:#444}.grid,.toolkit{display:block}.grid>.card,.tool-card{margin-bottom:12px}.result-card{position:static}.explain{display:none}}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">본문 바로가기</a>
   <header class="wrap top">
-    <div class="eyebrow">CAMPUS TOOL · FREE</div>
-    <h1>이번 학기 성적,<br>미리 계산해보기</h1>
-    <p>과목과 학점을 입력하면 학기 평균을 계산하고, 원하는 누적 평점을 위한 다음 학기 목표도 확인할 수 있어요.</p>
-    <span class="pill">가입 없이 사용</span><span class="pill">입력 내용은 이 브라우저에만 저장</span>
+    <div class="eyebrow">CAMPUS TOOLKIT · FREE</div>
+    <h1>대학생활,<br>한곳에서 정리하기</h1>
+    <p>학점 계산부터 이번 달 돈 관리와 시험 준비까지. 필요한 도구를 골라 바로 쓰고, 입력한 내용은 이 브라우저에만 저장하세요.</p>
+    <span class="pill">가입 없이 무료</span><span class="pill">개인정보를 서버로 보내지 않음</span><span class="pill">휴대전화에서도 사용</span>
+    <div class="toolbar"><button class="btn secondary" id="printPage" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="sharePage" type="button">도구 링크 복사</button><span class="message" id="shareStatus" role="status" aria-live="polite"></span></div>
   </header>
-  <main class="wrap grid">
-    <section class="card" aria-labelledby="courses-title">
+  <nav class="quick-nav" aria-label="도구 바로가기"><a href="#grades">학점 계산</a><a href="#budget">생활비</a><a href="#wage">알바 급여</a><a href="#calendar">시험·과제</a><a href="#focus">집중 타이머</a><a href="#scholarships">장학금</a></nav>
+  <main class="wrap grid" id="mainContent">
+    <section class="card" id="grades" aria-labelledby="courses-title">
       <h2 id="courses-title">이번 학기 과목</h2>
       <div class="controls">
         <div class="field"><label for="scale">평점 기준</label><select id="scale"><option value="4.5">4.5 만점</option><option value="4.3">4.3 만점</option></select></div>
       </div>
       <div class="table-head" aria-hidden="true"><span>과목명</span><span>학점</span><span>성적</span><span></span></div>
       <div id="courses"></div>
-      <div class="actions"><button class="btn" id="add">＋ 과목 추가</button><button class="btn secondary" id="clear">과목 비우기</button></div>
+      <div class="actions"><button class="btn" id="add">＋ 과목 추가</button><button class="btn secondary" id="sampleCourses" type="button">예시 4과목 추가</button><button class="btn secondary" id="clear">과목 비우기</button></div>
+      <p class="note">처음이라면 예시를 추가해 결과를 확인한 뒤, 필요 없는 행을 지우고 본인 과목을 입력하세요.</p>
       <p class="note">P/F 과목, 재수강 처리, 학교별 환산 기준은 학교 규정에 따라 다를 수 있어요.</p>
     </section>
     <aside class="card result-card" aria-labelledby="result-title">
@@ -53,13 +64,92 @@
       </div>
     </aside>
   </main>
+  <section class="wrap toolkit" aria-label="대학생활 도구">
+    <article class="card tool-card" id="budget" aria-labelledby="budget-title">
+      <h2 id="budget-title">이번 달 생활비 관리</h2>
+      <p class="note">수입과 지출을 적으면 남는 금액과 저축 비율을 계산합니다.</p>
+      <div class="target-grid">
+        <div class="field"><label for="budgetIncome">이번 달 수입·용돈</label><input id="budgetIncome" type="number" min="0" step="10000" placeholder="예: 600000"></div>
+        <div class="field"><label for="budgetFixed">주거·고정비</label><input id="budgetFixed" type="number" min="0" step="10000" placeholder="예: 250000"></div>
+        <div class="field"><label for="budgetFood">식비</label><input id="budgetFood" type="number" min="0" step="10000" placeholder="예: 150000"></div>
+        <div class="field"><label for="budgetTransport">교통비</label><input id="budgetTransport" type="number" min="0" step="10000" placeholder="예: 50000"></div>
+        <div class="field"><label for="budgetSchool">학업·교재비</label><input id="budgetSchool" type="number" min="0" step="10000" placeholder="예: 30000"></div>
+        <div class="field"><label for="budgetPhone">통신비</label><input id="budgetPhone" type="number" min="0" step="10000" placeholder="예: 40000"></div>
+        <div class="field"><label for="budgetEtc">기타 지출</label><input id="budgetEtc" type="number" min="0" step="10000" placeholder="예: 50000"></div>
+      </div>
+      <p class="note" id="budgetMigration" hidden>이전에 저장한 식비·교통비 합계는 금액을 보존해 식비 칸에 남겨뒀어요. 교통비를 따로 보려면 식비와 교통비로 나눠 입력하세요.</p>
+      <div class="target-output"><span>이번 달 남는 금액</span><strong class="money" id="budgetLeft">0원</strong><span id="budgetRatio">수입을 입력하면 저축 비율을 계산해요.</span></div>
+      <p class="note">가계부 참고용 계산이며 금융·투자 조언이 아닙니다.</p>
+    </article>
+    <article class="card tool-card" id="wage" aria-labelledby="wage-title">
+      <h2 id="wage-title">알바 급여 계산</h2>
+      <p class="note">근무 조건을 넣어 세전 예상 금액을 확인하세요.</p>
+      <div class="target-grid">
+        <div class="field"><label for="hourlyWage">시급</label><input id="hourlyWage" type="number" min="0" step="100" placeholder="예: 10000"></div>
+        <div class="field"><label for="weeklyHours">주 근무시간</label><input id="weeklyHours" type="number" min="0" max="168" step="0.5" placeholder="예: 15"></div>
+        <div class="field"><label for="workWeeks">이번 달 근무 주수</label><input id="workWeeks" type="number" min="0" max="6" step="0.5" value="4.345"></div>
+      </div>
+      <div class="target-output"><span>예상 세전 급여</span><strong class="money" id="wageMonthly">0원</strong><span id="wageWeekly">시급과 근무시간을 입력하세요.</span></div>
+      <p class="note">주휴수당, 연장·야간수당, 세금·공제는 반영하지 않습니다. 실제 지급액은 근로계약과 법정 기준을 확인하세요.</p>
+    </article>
+    <article class="card tool-card" id="calendar" aria-labelledby="exam-title">
+      <h2 id="exam-title">시험·과제 D-day</h2>
+      <p class="note">일정을 추가하면 남은 날짜를 보여주고, 이 브라우저에만 저장합니다.</p>
+      <form class="task-form" id="taskForm">
+        <div class="field"><label for="taskName">과목·할 일</label><input id="taskName" maxlength="80" required placeholder="예: 경제학 중간고사"></div>
+        <div class="field"><label for="taskDate">마감일</label><input id="taskDate" type="date" required></div>
+        <button class="btn" type="submit">일정 추가</button>
+      </form>
+      <div class="task-list" id="taskList" aria-live="polite"></div>
+      <p class="note" id="taskEmpty">아직 일정이 없어요.</p>
+    </article>
+    <article class="card tool-card" id="scholarships" aria-labelledby="scholarship-title">
+      <h2 id="scholarship-title">장학금 신청 준비 체크</h2>
+      <p class="note">학교·기관 공고를 확인하고 필요한 서류를 직접 체크하세요.</p>
+      <div class="checklist" id="scholarshipList">
+        <div class="check-row"><input id="checkNotice" data-check="notice" type="checkbox"><label for="checkNotice">모집 공고와 신청 기간 확인</label></div>
+        <div class="check-row"><input id="checkEligibility" data-check="eligibility" type="checkbox"><label for="checkEligibility">성적·소득·학적 자격 확인</label></div>
+        <div class="check-row"><input id="checkDocs" data-check="docs" type="checkbox"><label for="checkDocs">필요 서류와 발급일 확인</label></div>
+        <div class="check-row"><input id="checkSubmit" data-check="submit" type="checkbox"><label for="checkSubmit">제출 완료와 접수 상태 확인</label></div>
+      </div>
+      <div class="target-output"><span>준비 진행률</span><strong id="checkProgress">0 / 4 완료</strong></div>
+      <p class="note">장학금마다 조건과 서류가 다르니 해당 학교·기관의 공식 공고를 기준으로 하세요.</p>
+    </article>
+    <article class="card tool-card" id="focus" aria-labelledby="focus-title">
+      <h2 id="focus-title">집중 타이머</h2>
+      <p class="note">짧은 집중 세션을 시작하고 오늘 완료한 횟수를 기록하세요.</p>
+      <div class="controls">
+        <div class="field"><label for="focusLength">집중 시간</label><select id="focusLength"><option value="25">25분</option><option value="50">50분</option><option value="15">15분</option></select></div>
+      </div>
+      <div class="field focus-intention"><label for="focusIntention">이번 세션에서 끝낼 일</label><input id="focusIntention" maxlength="120" placeholder="예: 3주차 강의 노트 2쪽 정리"></div>
+      <div class="target-output"><strong class="focus-clock" id="focusClock" aria-live="polite">25:00</strong><span id="focusStatus">시작을 누르면 타이머가 돌아가요.</span></div>
+      <div class="tool-actions"><button class="btn" id="startFocus" type="button">집중 시작</button><button class="btn secondary" id="pauseFocus" type="button">일시정지</button><button class="btn secondary" id="resetFocus" type="button">초기화</button></div>
+      <p class="note">오늘 완료한 세션: <strong id="focusToday">0회</strong> · 페이지를 닫으면 타이머는 멈춥니다.</p>
+      <div id="focusWeek" class="week-bars" role="img" aria-label="최근 7일 집중 세션 기록"></div>
+    </article>
+    <article class="card tool-card" aria-labelledby="review-title">
+      <h2 id="review-title">이번 주 자기 점검</h2>
+      <p class="note">한 주의 결과와 다음 행동을 적어 두세요. 기록은 이 브라우저에만 저장됩니다.</p>
+      <form id="reviewForm" class="review-grid">
+        <div class="field"><label for="reviewGoal">이번 주 목표</label><input id="reviewGoal" maxlength="120" placeholder="예: 전공 강의 3개 복습"></div>
+        <div class="field"><label for="reviewDone">실제로 한 일</label><textarea id="reviewDone" maxlength="400" placeholder="완료한 일을 간단히 적어 주세요."></textarea></div>
+        <div class="field"><label for="reviewBlocker">막힌 점</label><textarea id="reviewBlocker" maxlength="300" placeholder="시간 부족, 이해 안 된 부분 등"></textarea></div>
+        <div class="field"><label for="reviewNext">다음 주 첫 행동</label><input id="reviewNext" maxlength="160" placeholder="예: 월요일 10시에 2주차 문제 풀기"></div>
+        <button class="btn" type="submit">점검 저장</button>
+      </form>
+      <div class="target-output review-result" id="reviewResult" aria-live="polite">이번 주 기록을 작성해 보세요.</div>
+    </article>
+  </section>
   <section class="wrap card explain">
+    <h2>도구 사용 안내</h2>
+    <details><summary>내 정보가 저장되거나 전송되나요?</summary><p>학점·예산·일정·체크리스트는 이 기기의 브라우저 저장소에만 저장됩니다. 이 페이지는 입력값을 서버로 전송하지 않습니다. 다른 기기와 자동 동기화되지 않으며, 브라우저 데이터를 지우면 저장한 내용도 사라질 수 있어요.</p></details>
+    <details><summary>알바 급여 계산 결과가 실수령액인가요?</summary><p>아니요. 시급과 근무시간을 곱한 단순 세전 예상액입니다. 주휴수당, 연장·야간수당, 세금과 공제는 계산하지 않으므로 실제 금액은 근로계약서와 사업주 급여 내역을 확인하세요.</p></details>
     <h2>계산 방법</h2>
     <details open><summary>이번 학기 평점은 어떻게 계산하나요?</summary><p>과목별 평점에 과목 학점을 곱한 뒤 모두 더하고, 총 신청 학점으로 나눕니다. 예를 들어 3학점 과목에서 4.0, 2학점 과목에서 3.5를 받으면 (3×4.0 + 2×3.5) ÷ 5로 계산합니다.</p></details>
     <details><summary>목표 누적 평점 계산은 정확한가요?</summary><p>현재 누적 평점과 이수 학점을 기준으로 다음 학기 필요한 평균을 단순 계산합니다. 재수강, P/F, 학점 인정, 학교별 반올림 방식은 반영하지 않으므로 공식 성적표와 학사 규정을 확인하세요.</p></details>
     <details><summary>입력한 과목 정보는 저장되나요?</summary><p>입력 정보는 편의를 위해 현재 브라우저의 로컬 저장소에만 보관됩니다. 이 페이지는 입력 데이터를 서버로 보내지 않습니다. 공용 기기에서는 사용 후 과목을 비워 주세요.</p></details>
   </section>
-  <footer class="wrap footer">학점 설계는 참고용 계산 도구입니다. 공식 성적 산출은 소속 학교의 학사 규정을 확인하세요.</footer>
+  <footer class="wrap footer">캠퍼스 툴킷은 대학생활 계획을 돕는 무료 참고 도구입니다. 공식 성적·장학금·급여 기준은 소속 학교, 장학 기관, 근로계약과 관계 기관의 안내를 확인하세요.</footer>
   <script>
     const gradeValues = {
       "4.5": [["A+",4.5],["A0",4.0],["B+",3.5],["B0",3.0],["C+",2.5],["C0",2.0],["D+",1.5],["D0",1.0],["F",0]],
@@ -95,9 +185,150 @@
     coursesEl.addEventListener('change', e => { const el=e.target; if (!el.dataset.i) return; courses[Number(el.dataset.i)][el.dataset.k]=el.value; save(); calculate(); });
     coursesEl.addEventListener('click', e => { const i=e.target.dataset.remove; if (i===undefined) return; courses.splice(Number(i),1); save(); render(); });
     document.querySelector('#add').addEventListener('click', () => { courses.push({name:'',credits:'',grade:''}); save(); render(); coursesEl.lastElementChild?.querySelector('input')?.focus(); });
+    document.querySelector('#sampleCourses').addEventListener('click', () => {
+      const sample = [['전공 과목 1','3','A+'],['전공 과목 2','3','A0'],['교양 과목 1','3','B+'],['교양 과목 2','2','B0']];
+      courses = courses.filter(course => course.name || course.credits || course.grade);
+      courses.push(...sample.map(([name,credits,letter]) => ({name,credits,grade:String(gradeValues[scaleEl.value].find(([label]) => label === letter)[1])})));
+      save(); render();
+    });
     document.querySelector('#clear').addEventListener('click', () => { courses=[]; save(); render(); });
     scaleEl.addEventListener('change', () => { courses=courses.map(c=>({...c,grade:''})); document.querySelector('#targetGpa').max=scaleEl.value; document.querySelector('#currentGpa').max=scaleEl.value; save(); render(); });
     document.querySelectorAll('.target-grid input').forEach(el=>el.addEventListener('input',calculate));
+    const money = value => `${new Intl.NumberFormat('ko-KR').format(Math.round(value || 0))}원`;
+    const toolkitKey = 'campus-toolkit-v2';
+    let toolkitData = {};
+    try { const parsed = JSON.parse(localStorage.getItem(toolkitKey) || '{}'); if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) toolkitData = parsed; } catch {}
+    const persistToolkit = () => { try { localStorage.setItem(toolkitKey, JSON.stringify(toolkitData)); } catch {} };
+    const budgetMigrationNeeded = !Object.prototype.hasOwnProperty.call(toolkitData,'budgetTransport') && Object.prototype.hasOwnProperty.call(toolkitData,'budgetFood');
+    document.querySelector('#budgetMigration').hidden = !budgetMigrationNeeded;
+    ['budgetIncome','budgetFixed','budgetFood','budgetTransport','budgetSchool','budgetPhone','budgetEtc','hourlyWage','weeklyHours','workWeeks'].forEach(id => {
+      const input = document.querySelector(`#${id}`);
+      input.value = toolkitData[id] ?? input.value;
+      input.addEventListener('input', () => { toolkitData[id] = input.value; persistToolkit(); calculateBudget(); calculateWage(); });
+    });
+    function calculateBudget() {
+      const income = Number(document.querySelector('#budgetIncome').value) || 0;
+      const expenses = ['budgetFixed','budgetFood','budgetTransport','budgetSchool','budgetPhone','budgetEtc'].reduce((sum,id) => sum + (Number(document.querySelector(`#${id}`).value) || 0), 0);
+      const left = income - expenses;
+      document.querySelector('#budgetLeft').textContent = money(left);
+      document.querySelector('#budgetRatio').textContent = income ? `수입 대비 남는 비율 ${((left/income)*100).toFixed(1)}%` : '수입을 입력하면 저축 비율을 계산해요.';
+    }
+    function calculateWage() {
+      const hourly = Number(document.querySelector('#hourlyWage').value) || 0;
+      const hours = Number(document.querySelector('#weeklyHours').value) || 0;
+      const weeks = Number(document.querySelector('#workWeeks').value) || 0;
+      const weekly = hourly * hours;
+      document.querySelector('#wageMonthly').textContent = money(weekly * weeks);
+      document.querySelector('#wageWeekly').textContent = hourly && hours ? `주 예상 세전 ${money(weekly)} · ${weeks}주 기준` : '시급과 근무시간을 입력하세요.';
+    }
+    calculateBudget(); calculateWage();
+    let tasks = Array.isArray(toolkitData.tasks) ? toolkitData.tasks : [];
+    const taskList = document.querySelector('#taskList');
+    const dayText = date => {
+      const [y,m,d] = date.split('-').map(Number);
+      const due = new Date(y,m-1,d); due.setHours(0,0,0,0);
+      const today = new Date(); today.setHours(0,0,0,0);
+      const days = Math.round((due-today)/86400000);
+      return days > 0 ? `D-${days}` : days === 0 ? 'D-day' : `D+${Math.abs(days)}`;
+    };
+    function renderTasks() {
+      tasks.sort((a,b) => a.date.localeCompare(b.date));
+      taskList.innerHTML = tasks.map((task,i) => `<div class="task-row"><div class="task-main"><strong>${escapeHtml(task.name)}</strong><small>${escapeHtml(task.date)} · ${dayText(task.date)}</small></div><button class="mini-remove" type="button" data-task-remove="${i}" aria-label="${escapeHtml(task.name)} 일정 삭제">×</button></div>`).join('');
+      document.querySelector('#taskEmpty').hidden = tasks.length > 0;
+      toolkitData.tasks = tasks; persistToolkit();
+    }
+    document.querySelector('#taskForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.querySelector('#taskName').value.trim();
+      const date = document.querySelector('#taskDate').value;
+      if (!name || !date) return;
+      tasks.push({name,date});
+      document.querySelector('#taskName').value = '';
+      document.querySelector('#taskDate').value = '';
+      renderTasks();
+    });
+    taskList.addEventListener('click', event => {
+      const button = event.target.closest('[data-task-remove]');
+      if (!button) return;
+      tasks.splice(Number(button.dataset.taskRemove),1); renderTasks();
+    });
+    renderTasks();
+    const checkboxes = [...document.querySelectorAll('[data-check]')];
+    const savedChecks = toolkitData.checks || {};
+    checkboxes.forEach(box => { box.checked = Boolean(savedChecks[box.dataset.check]); box.closest('.check-row').classList.toggle('done',box.checked); });
+    function renderChecks() {
+      const done = checkboxes.filter(box => box.checked).length;
+      document.querySelector('#checkProgress').textContent = `${done} / ${checkboxes.length} 완료`;
+      checkboxes.forEach(box => box.closest('.check-row').classList.toggle('done',box.checked));
+      toolkitData.checks = Object.fromEntries(checkboxes.map(box => [box.dataset.check,box.checked])); persistToolkit();
+    }
+    checkboxes.forEach(box => box.addEventListener('change',renderChecks)); renderChecks();
+    const focusLength = document.querySelector('#focusLength');
+    const focusClock = document.querySelector('#focusClock');
+    const focusStatus = document.querySelector('#focusStatus');
+    const focusIntention = document.querySelector('#focusIntention');
+    focusIntention.value = toolkitData.focusIntention || '';
+    focusIntention.addEventListener('input', () => { toolkitData.focusIntention = focusIntention.value; persistToolkit(); });
+    let focusRemaining = Number(focusLength.value) * 60;
+    let focusInterval = null;
+    const todayKey = () => { const now = new Date(); return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`; };
+    const renderFocus = () => {
+      const minutes = Math.floor(focusRemaining / 60);
+      const seconds = focusRemaining % 60;
+      focusClock.textContent = `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+      const sessions = Array.isArray(toolkitData.focusSessions) ? toolkitData.focusSessions : [];
+      document.querySelector('#focusToday').textContent = `${sessions.filter(item => item.day === todayKey()).length}회`;
+      const days = Array.from({length:7},(_,index) => {
+        const date = new Date(); date.setHours(0,0,0,0); date.setDate(date.getDate() - (6-index));
+        const day = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+        return {day,label:['일','월','화','수','목','금','토'][date.getDay()],count:sessions.filter(item => item.day === day).length};
+      });
+      const maximum = Math.max(1,...days.map(item => item.count));
+      document.querySelector('#focusWeek').innerHTML = days.map(item => `<div class="day-bar" title="${item.day}: ${item.count}회"><span class="day-bar-count">${item.count}</span><div class="day-bar-track"><div class="day-bar-fill" style="height:${Math.max(6,(item.count/maximum)*100)}%"></div></div><span>${item.label}</span></div>`).join('');
+    };
+    const stopFocus = () => { if (focusInterval) clearInterval(focusInterval); focusInterval = null; focusLength.disabled = false; };
+    const completeFocus = () => {
+      stopFocus(); focusRemaining = 0;
+      const sessions = Array.isArray(toolkitData.focusSessions) ? toolkitData.focusSessions : [];
+      sessions.push({day:todayKey(), completedAt:Date.now(), intention:focusIntention.value.trim()});
+      toolkitData.focusSessions = sessions.slice(-500); persistToolkit();
+      focusStatus.textContent = '세션 완료! 잠깐 쉬고 다음 세션을 시작해 보세요.';
+      renderFocus();
+    };
+    document.querySelector('#startFocus').addEventListener('click', () => {
+      if (focusInterval) return;
+      if (focusRemaining <= 0) focusRemaining = Number(focusLength.value) * 60;
+      focusLength.disabled = true;
+      focusStatus.textContent = '집중 중…';
+      focusInterval = setInterval(() => { focusRemaining -= 1; if (focusRemaining <= 0) completeFocus(); else renderFocus(); }, 1000);
+    });
+    document.querySelector('#pauseFocus').addEventListener('click', () => { stopFocus(); focusStatus.textContent = '일시정지했어요.'; });
+    document.querySelector('#resetFocus').addEventListener('click', () => { stopFocus(); focusRemaining = Number(focusLength.value) * 60; focusStatus.textContent = '초기화했어요. 준비되면 시작하세요.'; renderFocus(); });
+    focusLength.addEventListener('change', () => { if (focusInterval) return; focusRemaining = Number(focusLength.value) * 60; focusStatus.textContent = '시작을 누르면 타이머가 돌아가요.'; renderFocus(); });
+    renderFocus();
+    const reviewFields = ['reviewGoal','reviewDone','reviewBlocker','reviewNext'];
+    const currentWeek = () => { const date = new Date(); date.setHours(0,0,0,0); date.setDate(date.getDate() - ((date.getDay()+6)%7)); return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; };
+    let reviews = Array.isArray(toolkitData.weeklyReviews) ? toolkitData.weeklyReviews : [];
+    const savedReview = reviews.find(item => item.week === currentWeek());
+    if (savedReview) reviewFields.forEach(id => { document.querySelector(`#${id}`).value = savedReview[id] || ''; });
+    const showReview = review => {
+      const result = document.querySelector('#reviewResult');
+      if (!review) { result.textContent = '이번 주 기록을 작성해 보세요.'; return; }
+      result.textContent = `이번 주 목표: ${review.reviewGoal || '미입력'}\n한 일: ${review.reviewDone || '미입력'}\n막힌 점: ${review.reviewBlocker || '없음'}\n다음 주 첫 행동: ${review.reviewNext || '미입력'}`;
+    };
+    showReview(savedReview);
+    document.querySelector('#reviewForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const review = {week:currentWeek(), ...Object.fromEntries(reviewFields.map(id => [id,document.querySelector(`#${id}`).value.trim()]))};
+      reviews = reviews.filter(item => item.week !== review.week); reviews.push(review); reviews = reviews.slice(-26);
+      toolkitData.weeklyReviews = reviews; persistToolkit(); showReview(review);
+    });
+    document.querySelector('#printPage').addEventListener('click',() => window.print());
+    document.querySelector('#sharePage').addEventListener('click',async () => {
+      const status = document.querySelector('#shareStatus');
+      try { await navigator.clipboard.writeText(location.href); status.textContent = '현재 페이지 링크를 복사했어요.'; }
+      catch { status.textContent = '브라우저 주소창의 링크를 복사해 공유해 주세요.'; }
+    });
     if (!courses.length) courses=[{name:'',credits:'',grade:''}];
     render();
   </script>
