@@ -86,7 +86,7 @@
     el('calculate').addEventListener('click',calculate);
     el('sample').addEventListener('click',()=>{el('remaining').value='100000';el('days').value='8';el('reserve').value='0';calculate();});
     el('includeResult').addEventListener('change',renderCard);
-    el('copyLink').addEventListener('click',async()=>{const text='남은 생활비와 날짜로 하루 기준 예산을 확인해 보세요. 공유할 때 계산 금액은 기본으로 숨겨집니다. https://chicken7550.github.io/campus-gpa-planner/daily-budget.html';try{await navigator.clipboard.writeText(text);el('shareStatus').textContent='금액이 포함되지 않은 공유 문구를 복사했어요.';}catch{el('shareStatus').textContent='복사 권한을 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
+    el('copyLink').addEventListener('click',async()=>{const title='월말 하루 예산 계산기',text='남은 생활비와 날짜로 하루 기준 예산을 확인해 보세요. 계산 금액은 공유하지 않습니다.',url='https://chicken7550.github.io/campus-gpa-planner/daily-budget.html';try{if(navigator.share){await navigator.share({title,text,url});el('shareStatus').textContent='공유 메뉴를 열었어요.';}else{await navigator.clipboard.writeText(text+' '+url);el('shareStatus').textContent='금액을 제외한 공유 문구를 복사했어요.';}}catch(error){el('shareStatus').textContent=error&&error.name==='AbortError'?'공유를 취소했어요.':'공유를 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
     el('downloadCard').addEventListener('click',()=>{
       if(daily===null)return;const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;const ctx=canvas.getContext('2d');
       const g=ctx.createLinearGradient(0,0,1200,630);g.addColorStop(0,'#1e3650');g.addColorStop(1,'#10231f');ctx.fillStyle='#0b1220';ctx.fillRect(0,0,1200,630);ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(36,36,1128,558,34);ctx.fill();

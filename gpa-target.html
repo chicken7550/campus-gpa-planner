@@ -46,7 +46,7 @@
     }
     el('calculate').addEventListener('click',calculate);
     el('sample').addEventListener('click',()=>{el('scale').value='4.5';el('currentGpa').value='3.20';el('currentCredits').value='45';el('targetGpa').value='3.50';el('nextCredits').value='18';calculate();});
-    el('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('다음 학기에 필요한 평균 평점을 학점 가중 방식으로 계산해 보세요. 입력값은 공유되지 않습니다. https://chicken7550.github.io/campus-gpa-planner/gpa-target.html');el('shareStatus').textContent='성적이 포함되지 않은 계산기 링크를 복사했어요.';}catch{el('shareStatus').textContent='복사 권한을 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
+    el('copyLink').addEventListener('click',async()=>{const title='목표 학점 역산 계산기',text='다음 학기에 필요한 평균 평점을 학점 가중 방식으로 계산해 보세요. 개인 성적은 공유하지 않습니다.',url='https://chicken7550.github.io/campus-gpa-planner/gpa-target.html';try{if(navigator.share){await navigator.share({title,text,url});el('shareStatus').textContent='공유 메뉴를 열었어요.';}else{await navigator.clipboard.writeText(text+' '+url);el('shareStatus').textContent='개인 성적을 제외한 공유 문구를 복사했어요.';}}catch(error){el('shareStatus').textContent=error&&error.name==='AbortError'?'공유를 취소했어요.':'공유를 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
   </script>
 </body>
 </html>

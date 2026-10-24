@@ -37,7 +37,7 @@
     <h1>대학생활,<br>한곳에서 정리하기</h1>
     <p>학점 계산부터 이번 달 돈 관리와 시험 준비까지. 필요한 도구를 골라 바로 쓰고, 입력한 내용은 이 브라우저에만 저장하세요.</p>
     <span class="pill">가입 없이 무료</span><span class="pill">개인정보를 서버로 보내지 않음</span><span class="pill">휴대전화에서도 사용</span>
-    <div class="toolbar"><button class="btn secondary" id="printPage" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="sharePage" type="button">도구 링크 복사</button><span class="message" id="shareStatus" role="status" aria-live="polite"></span></div>
+    <div class="toolbar"><button class="btn secondary" id="printPage" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="sharePage" type="button">친구에게 도구 공유</button><span class="message" id="shareStatus" role="status" aria-live="polite"></span></div>
   </header>
   <nav class="quick-nav" aria-label="도구 바로가기"><a href="#grades">학점 계산</a><a href="#budget">생활비</a><a href="#wage">알바 급여</a><a href="#calendar">시험·과제</a><a href="#focus">집중 타이머</a><a href="#scholarships">장학금</a><a href="daily-budget.html">월말 하루 예산</a><a href="gpa-target.html">목표 학점 역산</a><a href="resale-profit.html">중고 정산액</a><a href="toolbox.html">도구 카테고리 더 보기</a><a href="workflows.html">AI 업무 프롬프트</a><a href="resale-helper.html">중고판매 도우미</a><a href="resume-builder.html">이력서 작업실</a></nav>
   <main class="wrap grid" id="mainContent">
@@ -369,8 +369,15 @@
     document.querySelector('#printPage').addEventListener('click',() => window.print());
     document.querySelector('#sharePage').addEventListener('click',async () => {
       const status = document.querySelector('#shareStatus');
-      try { await navigator.clipboard.writeText(location.href); status.textContent = '현재 페이지 링크를 복사했어요.'; }
-      catch { status.textContent = '브라우저 주소창의 링크를 복사해 공유해 주세요.'; }
+      const title = '캠퍼스 툴킷';
+      const text = '대학생활의 학점·생활비·시험 준비 도구를 무료로 사용해 보세요.';
+      const url = 'https://chicken7550.github.io/campus-gpa-planner/';
+      try {
+        if (navigator.share) { await navigator.share({title, text, url}); status.textContent = '공유 메뉴를 열었어요.'; }
+        else { await navigator.clipboard.writeText(text + ' ' + url); status.textContent = '공유 문구를 복사했어요.'; }
+      } catch (error) {
+        status.textContent = error && error.name === 'AbortError' ? '공유를 취소했어요.' : '공유를 사용할 수 없어요. 주소창의 링크를 복사해 주세요.';
+      }
     });
     if (!courses.length) courses=[{name:'',credits:'',grade:''}];
     render();
