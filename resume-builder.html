@@ -18,7 +18,7 @@
 <a class="skip" href="#main">본문 바로가기</a>
 <header class="wrap top">
 <div class="eyebrow">CLEARCV · FREE WORKSPACE</div>
-<h1>경험을 정리하고,<br>이력서 한 장으로</h1>
+<h1>내 경험을 모아,<br>지원할 이력서로</h1>
 <p>경력·프로젝트·기술을 채우면 오른쪽에서 이력서가 바로 완성됩니다. 공고 핵심어를 빠뜨렸는지 확인하고 브라우저에서 PDF로 저장하세요.</p>
 <div class="pills"><span class="pill">무료 · 로그인 없음</span><span class="pill">이력서는 기기 안에만 저장</span><span class="pill">AI·유료 API 없음</span></div>
 </header>
@@ -35,7 +35,7 @@
 <div class="field wide"><label for="link">포트폴리오·LinkedIn 링크 (선택)</label><input id="link" maxlength="180" placeholder="예: portfolio.example.com"></div>
 <div class="field wide"><label for="summary">소개</label><textarea id="summary" maxlength="700" placeholder="강점과 지원 직무의 연결을 구체적으로 적으세요."></textarea></div>
 </div>
-<div class="progress"><div class="progress-top"><span>작성 진행도</span><span id="progressLabel">0 / 5</span></div><div class="bar"><span id="progressBar"></span></div></div>
+<div class="progress"><div class="progress-top"><span>작성 진행도</span><span id="progressLabel">0 / 5</span></div><div class="bar" id="progressTrack" role="progressbar" aria-label="이력서 작성 진행도" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span id="progressBar"></span></div></div>
 </section>
 <section class="panel" id="experience">
 <h2>경험을 근거와 함께</h2><p class="desc">한 줄에 하나씩 작성하세요. 수치와 성과는 실제로 확인되는 내용만 넣으세요.</p>
@@ -53,8 +53,8 @@
 <p class="note">단순 문구 포함 여부만 보는 참고 기능입니다. 채용 시스템 통과나 합격을 예측하지 않습니다.</p>
 </section>
 <section class="panel">
-<h2>내보내기</h2><p class="desc">종이에 잘 맞는 한 칸 이력서를 인쇄하거나 PDF로 저장합니다.</p>
-<div class="actions"><button class="btn" id="printBtn" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="sampleBtn" type="button">예시 채우기</button><button class="btn secondary" id="clearBtn" type="button">초안 지우기</button></div>
+<h2>내보내기</h2><p class="desc">정돈된 이력서를 인쇄하거나 PDF로 저장합니다. 내용이 길면 여러 페이지로 나뉠 수 있어요.</p>
+<div class="actions"><button class="btn" id="printBtn" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="copyBtn" type="button">이력서 문구 복사</button><button class="btn secondary" id="sampleBtn" type="button">예시 채우기</button><button class="btn secondary" id="clearBtn" type="button">초안 지우기</button></div>
 <p class="status" id="status" role="status" aria-live="polite"></p>
 <div class="privacy">주민등록번호, 집 주소, 계정 비밀번호는 적지 마세요. 이 페이지는 내용을 서버로 전송하지 않습니다. 공용 기기에서는 사용 후 초안을 지우세요.</div>
 </section>
@@ -74,7 +74,7 @@
 <script>
 (()=>{
 const key="clearcv-draft-v1",ids=["name","role","email","phone","link","summary","experienceText","projectText","educationText","skills","keywords"],el=id=>document.getElementById(id);
-const read=()=>{try{return JSON.parse(localStorage.getItem(key)||"{}")}catch{return {}}};
+const read=()=>{try{const value=JSON.parse(localStorage.getItem(key)||"{}");return value&&typeof value==="object"&&!Array.isArray(value)?value:{}}catch{return {}}};
 const save=()=>{const data={};ids.forEach(id=>data[id]=el(id).value);try{localStorage.setItem(key,JSON.stringify(data));announce("초안이 이 브라우저에 저장됐어요.")}catch{announce("브라우저 저장 공간을 사용할 수 없어요.")}};
 let timer;
 function announce(text){el("status").textContent=text;clearTimeout(timer);timer=setTimeout(()=>el("status").textContent="",2600)}
@@ -89,16 +89,16 @@ section("sectionProjects","previewProjects",el("projectText").value);
 section("sectionEducation","previewEducation",el("educationText").value);
 section("sectionSkills","previewSkills",el("skills").value);
 const count=[name,role,el("summary").value.trim(),el("experienceText").value.trim()||el("projectText").value.trim(),el("skills").value.trim()].filter(Boolean).length;
-el("progressLabel").textContent=count+" / 5";el("progressBar").style.width=(count*20)+"%";
+el("progressLabel").textContent=count+" / 5";el("progressBar").style.width=(count*20)+"%";el("progressTrack").setAttribute("aria-valuenow",String(count));
 const terms=[...new Set(el("keywords").value.split(/[\n,，;；]+/).map(x=>x.trim()).filter(Boolean))],body=ids.slice(0,10).map(id=>el(id).value.toLocaleLowerCase()).join("\n"),result=el("keywordResult");result.replaceChildren();
 if(!terms.length){const hint=document.createElement("span");hint.className="keyword-group";hint.textContent="핵심어를 입력하면 이력서 본문에서 같은 표현이 있는지 확인합니다.";result.append(hint);return}
 const found=terms.filter(t=>body.includes(t.toLocaleLowerCase())),missing=terms.filter(t=>!body.includes(t.toLocaleLowerCase()));
 [[found,"본문에서 확인"],[missing,"본문에 없는 표현"]].forEach(([list,label])=>{if(!list.length)return;const group=document.createElement("div");group.className="keyword-group";group.textContent=label;const tags=document.createElement("div");tags.className="tags";list.forEach(term=>{const tag=document.createElement("span");tag.className="tag "+(label==="본문에서 확인"?"found":"missing");tag.textContent=term;tags.append(tag)});group.append(tags);result.append(group)});
 }
-const draft=read();ids.forEach(id=>{if(draft[id]!==undefined)el(id).value=draft[id];el(id).addEventListener("input",()=>{render();clearTimeout(timer);timer=setTimeout(save,350)})});
+const draft=read();ids.forEach(id=>{if(typeof draft[id]==="string")el(id).value=draft[id];el(id).addEventListener("input",()=>{render();clearTimeout(timer);timer=setTimeout(save,350)})});
 el("printBtn").addEventListener("click",()=>window.print());
-el("sampleBtn").addEventListener("click",()=>{const sample={name:"김지원",role:"고객 경험을 개선하는 운영 지원 인재",email:"jiwon.kim@example.com",phone:"010-0000-0000",link:"portfolio.example.com",summary:"매장 운영과 고객 응대 경험을 바탕으로 반복되는 업무를 차분히 정리합니다. 확인 가능한 사실을 정확하게 기록하고, 팀이 함께 쓰기 쉬운 안내 방식을 만드는 데 관심이 있습니다.",experienceText:"2024.03–2025.02 | 해봄상점 · 운영 보조\n• 일일 주문과 재고 기록을 정리하고 고객 문의를 응대\n• 반복 문의에 필요한 안내 문구를 정리해 팀원과 공유",projectText:"문의 안내 정리 | 운영 보조\n• 자주 묻는 질문을 유형별로 모아 답변 초안 작성\n• 팀 내부 검토를 받아 안내 문구를 업데이트",educationText:"2022.03–2026.02 | 해봄대학교 · 경영학 전공\nExcel 실무 기초 과정 수료",skills:"고객 응대, Excel, 문서 정리, 재고 관리",keywords:"고객 응대, Excel, 재고 관리"};ids.forEach(id=>el(id).value=sample[id]||"");render();try{localStorage.setItem(key,JSON.stringify(sample))}catch{}announce("가상 예시를 채웠어요. 본인 경험으로 바꿔 사용하세요.")});
-el("clearBtn").addEventListener("click",()=>{ids.forEach(id=>el(id).value="");try{localStorage.removeItem(key)}catch{}render();announce("이 브라우저에 저장된 초안을 지웠어요.")});
+el("sampleBtn").addEventListener("click",()=>{if(ids.some(id=>el(id).value.trim())&&!window.confirm("예시를 불러오면 현재 입력 내용이 바뀝니다. 계속할까요?"))return;clearTimeout(timer);const sample={name:"김지원",role:"고객 경험을 개선하는 운영 지원 인재",email:"jiwon.kim@example.com",phone:"010-0000-0000",link:"portfolio.example.com",summary:"매장 운영과 고객 응대 경험을 바탕으로 반복되는 업무를 차분히 정리합니다. 확인 가능한 사실을 정확하게 기록하고, 팀이 함께 쓰기 쉬운 안내 방식을 만드는 데 관심이 있습니다.",experienceText:"2024.03–2025.02 | 해봄상점 · 운영 보조\n• 일일 주문과 재고 기록을 정리하고 고객 문의를 응대\n• 반복 문의에 필요한 안내 문구를 정리해 팀원과 공유",projectText:"문의 안내 정리 | 운영 보조\n• 자주 묻는 질문을 유형별로 모아 답변 초안 작성\n• 팀 내부 검토를 받아 안내 문구를 업데이트",educationText:"2022.03–2026.02 | 해봄대학교 · 경영학 전공\nExcel 실무 기초 과정 수료",skills:"고객 응대, Excel, 문서 정리, 재고 관리",keywords:"고객 응대, Excel, 재고 관리"};ids.forEach(id=>el(id).value=sample[id]||"");render();try{localStorage.setItem(key,JSON.stringify(sample));announce("가상 예시를 채워 저장했어요. 본인 경험으로 바꿔 사용하세요.")}catch{announce("가상 예시를 채웠지만 브라우저에 저장하지 못했어요. 본인 경험으로 바꿔 사용하세요.")}});
+el("clearBtn").addEventListener("click",()=>{if(ids.some(id=>el(id).value.trim())&&!window.confirm("저장된 이력서 초안을 지울까요? 되돌릴 수 없습니다."))return;clearTimeout(timer);ids.forEach(id=>el(id).value="");let removed=true;try{localStorage.removeItem(key)}catch{removed=false}render();announce(removed?"이 브라우저에 저장된 초안을 지웠어요.":"화면은 비웠지만 브라우저에 저장된 초안은 지우지 못했어요.")});
 render();
 })();
 </script>

@@ -1,21 +1,335 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="등록금·주거비·식비·취업·공부 시간을 관리하는 무료 대학생 도구 모음"><meta name="theme-color" content="#101827"><title>캠퍼스 도구 모음</title>
-<style>
-:root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}.wrap{width:min(980px,calc(100% - 30px));margin:auto}.top{padding:40px 0 20px}.top small,.category{color:var(--mint);font-weight:800;letter-spacing:.08em}.top h1{font-size:clamp(32px,6vw,52px);line-height:1.08;margin:10px 0}.top p,.desc,.note{color:var(--muted)}.nav{position:sticky;top:0;background:#0c1220ed;border-bottom:1px solid var(--line);padding:10px max(15px,calc((100vw - 980px)/2));display:flex;gap:8px;overflow:auto;z-index:2}.nav a,.btn{white-space:nowrap;border:1px solid #34445a;border-radius:999px;padding:7px 12px;color:#d8e1ee;text-decoration:none;font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:16px auto 24px}.card{background:linear-gradient(150deg,#1b2739,#141d2c);border:1px solid var(--line);border-radius:16px;padding:20px}.card h2{margin:0 0 6px;font-size:20px}.desc,.note{font-size:13px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:grid;gap:5px;margin:8px 0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;min-width:0;background:#101827;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:10px;font:inherit}.result{margin-top:12px;padding:12px;background:#101827;border:1px solid var(--line);border-radius:10px}.result span{display:block;color:var(--muted);font-size:12px}.result strong{display:block;font-size:24px}.btn{display:inline-block;background:var(--mint);color:#09251e;border:0;border-radius:9px;font:inherit;font-weight:800;cursor:pointer;margin-top:8px}.list{display:grid;gap:8px;margin-top:12px}.item{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#101827;border:1px solid var(--line);border-radius:9px;padding:9px}.item small{color:var(--muted)}.item select{background:#151e2e;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:6px}.delete{border:0;background:transparent;color:#ff9c9c;font-size:18px;cursor:pointer}.category{font-size:13px;margin:28px auto 8px}.foot{color:#8493a7;font-size:12px;padding:8px 0 28px}@media(max-width:700px){.grid{grid-template-columns:1fr}.card{padding:16px}.fields{grid-template-columns:1fr}}
-</style></head>
-<body><header class="wrap top"><small>CAMPUS TOOLKIT · FREE</small><h1>대학생활에 필요한<br>작은 도구들</h1><p>돈과 생활, 취업, 공부 계획을 한 곳에서 정리하세요. 계산은 참고용이며 지원 기록은 이 브라우저에만 저장됩니다.</p></header>
-<nav class="nav"><a href="index.html">학점·일정 도구</a><a href="#money">돈·생활</a><a href="#career">취업·진로</a><a href="#study">공부 계획</a><a href="workflows.html">AI 프롬프트</a></nav>
-<main class="wrap"><h2 class="category" id="money">01 · 돈과 생활</h2><section class="grid">
-<article class="card"><h2>등록금 부족분</h2><p class="desc">확정 장학금과 마련한 금액을 뺀 준비 목표를 계산합니다.</p><div class="fields"><div class="field"><label for="tuition">등록금 총액</label><input id="tuition" type="number" min="0" placeholder="예: 3500000"></div><div class="field"><label for="grant">확정 장학금</label><input id="grant" type="number" min="0" placeholder="예: 1000000"></div><div class="field"><label for="saved">이미 마련한 금액</label><input id="saved" type="number" min="0" placeholder="예: 500000"></div><div class="field"><label for="months">준비 개월</label><input id="months" type="number" min="1" value="4"></div></div><div class="result"><span>추가 준비 금액</span><strong id="gap">입력해 주세요</strong><span id="monthly"></span></div><p class="note">학교의 실제 납부액과 장학 일정은 공식 공지를 확인하세요.</p></article>
-<article class="card"><h2>주거비 나누기</h2><p class="desc">월세와 공과금 합계를 인원수로 균등 분담합니다.</p><div class="fields"><div class="field"><label for="rent">월 주거비 합계</label><input id="rent" type="number" min="0" placeholder="예: 720000"></div><div class="field"><label for="people">부담 인원</label><input id="people" type="number" min="1" value="2"></div></div><div class="result"><span>1인당 평균</span><strong id="share">입력해 주세요</strong><span>방 크기별 차등은 계산하지 않습니다.</span></div></article>
-<article class="card"><h2>식비 하루 한도</h2><p class="desc">남은 식비 잔액을 남은 일수로 나눠 봅니다.</p><div class="fields"><div class="field"><label for="food">이번 달 식비 예산</label><input id="food" type="number" min="0" placeholder="예: 300000"></div><div class="field"><label for="spent">현재까지 지출</label><input id="spent" type="number" min="0" placeholder="예: 125000"></div><div class="field"><label for="days">남은 사용 일수</label><input id="days" type="number" min="1" placeholder="예: 18"></div></div><div class="result"><span>하루 평균 한도</span><strong id="daily">입력해 주세요</strong><span id="left"></span></div></article></section>
-<h2 class="category" id="career">02 · 취업과 진로</h2><section class="grid"><article class="card"><h2>지원 현황 기록장</h2><p class="desc">회사·직무·지원일·진행 단계를 기록합니다. 서버로 전송되지 않습니다.</p><form id="form"><div class="fields"><div class="field"><label for="company">회사·기관</label><input id="company" maxlength="60" required placeholder="회사명"></div><div class="field"><label for="role">지원 직무</label><input id="role" maxlength="60" required placeholder="직무명"></div><div class="field"><label for="date">지원일</label><input id="date" type="date" required></div><div class="field"><label for="stage">진행 단계</label><select id="stage"><option>준비 중</option><option>지원 완료</option><option>면접 예정</option><option>결과 대기</option><option>합격</option><option>종료</option></select></div></div><button class="btn" type="submit">기록 추가</button></form><div id="jobs" class="list" aria-live="polite"></div><p class="note">주민번호·비밀번호 등 민감정보는 적지 마세요.</p></article>
-<article class="card" id="study"><h2>주간 공부 시간 배분</h2><p class="desc">과목 중요도 비율에 따라 시간을 나눕니다.</p><div class="field"><label for="hours">이번 주 공부 가능 시간</label><input id="hours" type="number" min="0" max="168" value="12"></div><div id="subjects"></div><button class="btn" id="add" type="button">과목 추가</button> <button class="btn" id="allocate" type="button">시간 배분</button><div class="result" id="allocation">과목과 중요도를 입력하세요.</div><p class="note">휴식·수업·통학 시간을 고려해 조정하세요.</p></article></section>
-<p class="note">계산기 값은 페이지 안에서만 처리합니다. 취업 기록은 현재 브라우저의 로컬 저장소에만 남고 기기 간 동기화되지 않습니다. 이 도구는 재정·취업 결과를 보장하지 않습니다. <a href="index.html">첫 화면으로</a></p></main><footer class="wrap foot">캠퍼스 툴킷 · 무료 참고 도구</footer>
-<script>
-const won=n=>new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}).format(Math.round(n))+'원',num=id=>Math.max(0,Number(document.getElementById(id).value)||0);function tuitionCalc(){let g=Math.max(0,num('tuition')-num('grant')-num('saved')),m=Math.max(1,num('months'));document.getElementById('gap').textContent=won(g);document.getElementById('monthly').textContent='월 목표 약 '+won(g/m)}['tuition','grant','saved','months'].forEach(id=>document.getElementById(id).addEventListener('input',tuitionCalc));function rentCalc(){let c=num('rent'),p=Math.max(1,Math.floor(num('people')));document.getElementById('share').textContent=c?won(c/p):'입력해 주세요'}['rent','people'].forEach(id=>document.getElementById(id).addEventListener('input',rentCalc));function foodCalc(){let b=num('food'),s=num('spent'),d=Math.floor(num('days')),l=b-s;document.getElementById('daily').textContent=b&&d?won(Math.max(0,l)/d):'입력해 주세요';document.getElementById('left').textContent=b?'남은 식비 '+won(Math.max(0,l))+(l<0?' · 예산 초과':''):''}['food','spent','days'].forEach(id=>document.getElementById(id).addEventListener('input',foodCalc));
-const key='campus-tools.jobs.v1',jobs=document.getElementById('jobs');function read(){try{let x=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(x)?x:[]}catch{return []}}function render(){jobs.replaceChildren();read().sort((a,b)=>b.date.localeCompare(a.date)).forEach(item=>{let row=document.createElement('div');row.className='item';let info=document.createElement('div'),name=document.createElement('strong'),meta=document.createElement('small');name.textContent=item.company+' · '+item.role;meta.textContent=item.date;info.append(name,document.createElement('br'),meta);let select=document.createElement('select');['준비 중','지원 완료','면접 예정','결과 대기','합격','종료'].forEach(s=>{let o=document.createElement('option');o.textContent=s;o.selected=s===item.stage;select.append(o)});select.addEventListener('change',()=>{localStorage.setItem(key,JSON.stringify(read().map(x=>x.id===item.id?{...x,stage:select.value}:x)));render()});let del=document.createElement('button');del.type='button';del.className='delete';del.textContent='×';del.setAttribute('aria-label','기록 삭제');del.addEventListener('click',()=>{localStorage.setItem(key,JSON.stringify(read().filter(x=>x.id!==item.id)));render()});let controls=document.createElement('div');controls.append(select,del);row.append(info,controls);jobs.append(row)});if(!jobs.children.length){let p=document.createElement('p');p.className='note';p.textContent='아직 기록이 없습니다.';jobs.append(p)}}document.getElementById('date').value=new Date().toISOString().slice(0,10);document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();let a=read();a.push({id:String(Date.now()+Math.random()),company:document.getElementById('company').value.trim(),role:document.getElementById('role').value.trim(),date:document.getElementById('date').value,stage:document.getElementById('stage').value});localStorage.setItem(key,JSON.stringify(a.slice(-100)));e.target.reset();document.getElementById('date').value=new Date().toISOString().slice(0,10);render()});render();
-let count=0;function addSubject(name,weight){count++;let row=document.createElement('div'),f=document.createElement('div'),g=document.createElement('div');row.className='fields';f.className=g.className='field';let n=document.createElement('input'),w=document.createElement('input'),nl=document.createElement('label'),wl=document.createElement('label');nl.textContent='과목명';nl.htmlFor='subject'+count;wl.textContent='중요도 (1~5)';wl.htmlFor='weight'+count;n.id='subject'+count;n.maxLength=50;n.placeholder='예: 전공';n.value=name||'';w.id='weight'+count;w.type='number';w.min='1';w.max='5';w.value=weight||'2';f.append(nl,n);g.append(wl,w);row.append(f,g);document.getElementById('subjects').append(row)}addSubject('전공 과목',3);addSubject('교양 과목',2);document.getElementById('add').addEventListener('click',()=>{if(document.getElementById('subjects').children.length<12)addSubject('','2')});document.getElementById('allocate').addEventListener('click',()=>{let rows=[...document.getElementById('subjects').querySelectorAll('.fields')],sum=rows.reduce((t,r)=>t+Math.min(5,Math.max(1,Number(r.querySelector('input[type=number]').value)||1)),0),h=num('hours'),out=document.getElementById('allocation');out.replaceChildren();rows.forEach(r=>{let name=r.querySelector('input:not([type=number])').value||'이름 없는 과목',weight=Math.min(5,Math.max(1,Number(r.querySelector('input[type=number]').value)||1)),line=document.createElement('p');line.textContent=name+' — '+(sum?(h*weight/sum).toFixed(1):0)+'시간';out.append(line)})});
-</script></body></html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="등록금 부족분, 주거비 분담, 식비 한도, 취업 지원 현황과 공부 시간 배분을 관리하는 무료 대학생활 도구 모음입니다.">
+  <meta name="theme-color" content="#101827">
+  <title>캠퍼스 도구 모음 — 돈·취업·공부 관리</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--panel2:#1b2739;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2;--blue:#9bc4ff;--warn:#ffcf8c;--danger:#ff9c9c}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(1040px,calc(100% - 32px));margin:auto}.top{padding:42px 0 24px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.top h1{font-size:clamp(32px,6vw,52px);letter-spacing:-.045em;line-height:1.07;margin:12px 0}.top p{color:var(--muted);max-width:720px;margin:0;font-size:17px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:12px 6px 0 0}.quick-nav{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow-x:auto;padding:9px max(16px,calc((100vw - 1040px)/2));background:#0c1220ef;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);scrollbar-width:none}.quick-nav::-webkit-scrollbar{display:none}.quick-nav a{flex:0 0 auto;color:#c3cedd;text-decoration:none;border:1px solid #34445a;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700}.quick-nav a:hover,.quick-nav a:focus-visible{color:var(--mint);border-color:var(--mint);outline-offset:2px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px auto}.card{min-width:0;background:linear-gradient(155deg,rgba(27,39,57,.98),rgba(20,29,44,.98));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 50px #0002;scroll-margin-top:76px}.card h2{font-size:19px;margin:0 0 8px;letter-spacing:-.02em}.desc,.note{font-size:13px;color:var(--muted);margin:0 0 14px}.field{display:grid;gap:6px;flex:1;min-width:140px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{background:#101827;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;padding:10px 11px;min-width:0;width:100%;outline:none}.field input:focus,.field select:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.btn{display:inline-block;text-decoration:none;border:0;border-radius:10px;background:var(--mint);color:#09251e;font-weight:800;padding:10px 14px;cursor:pointer;font:inherit}.btn.secondary{background:#25364d;color:var(--text);border:1px solid #354761}.btn:hover{filter:brightness(1.06)}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.output{background:#101827;border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:13px}.output span{display:block;color:var(--muted);font-size:12px}.output strong{display:block;font-size:25px;line-height:1.3;margin:3px 0}.status{min-height:21px;color:var(--warn);font-size:13px;margin:7px 0 0}.callout{border:1px solid #354761;background:#101827;border-radius:12px;padding:12px;color:#c3cedd;margin-top:13px;font-size:13px}.row{display:grid;grid-template-columns:minmax(0,1fr) 90px 38px;gap:8px;align-items:end;margin:9px 0}.row .field{min-width:0}.remove{height:42px;border:1px solid var(--line);background:#101827;color:#aebbd0;border-radius:10px;font-size:18px;cursor:pointer}.task-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:end}.task-form .wide{grid-column:1/-1}.task-list{display:grid;gap:8px;margin-top:12px}.task{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:#101827;border:1px solid var(--line);border-radius:10px;padding:10px 12px}.task strong{display:block;overflow-wrap:anywhere}.task small{color:var(--muted)}.task-actions{display:flex;gap:6px;align-items:center}.task select{background:#151e2e;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px;max-width:130px}.mini{border:0;background:transparent;color:var(--muted);font-size:18px;cursor:pointer}.mini:hover{color:var(--danger)}.category{margin:28px auto 10px;font-size:13px;color:var(--mint);font-weight:800;letter-spacing:.09em}.foot{color:#8493a7;font-size:12px;padding:8px 0 30px}.skip{position:absolute;left:-9999px;top:4px}.skip:focus{left:8px;z-index:20;background:var(--mint);color:#09251e;padding:8px 12px;border-radius:8px}.subject-list{margin:12px 0 0}.subject-result{display:grid;gap:7px}.subject-result div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:7px 0}.subject-result span{color:var(--muted)}
+    :focus-visible{outline:3px solid var(--blue);outline-offset:2px}.field input:focus-visible,.field select:focus-visible,.task select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.btn:disabled,.remove:disabled{opacity:.55;cursor:not-allowed}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}.top{padding-top:30px}.card{padding:17px}}@media(max-width:420px){.wrap{width:calc(100% - 20px)}.card{padding:14px}.fields{grid-template-columns:1fr}.row{grid-template-columns:minmax(0,1fr) 70px 34px;gap:5px}.task-form{grid-template-columns:1fr}.task-form .wide{grid-column:auto}.task{grid-template-columns:1fr}.task-actions{justify-content:space-between}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <header class="wrap top">
+    <div class="eyebrow">CAMPUS TOOLKIT · MORE TOOLS</div>
+    <h1>대학생활 도구,<br>필요한 만큼 더하기</h1>
+    <p>등록금 계획부터 취업 지원 기록까지 자주 쓰는 작은 도구를 모았어요. 입력값은 이 브라우저에만 저장되며 서버로 전송되지 않습니다.</p>
+    <span class="pill">무료 · 가입 없음</span><span class="pill">기기 안에서만 저장</span><span class="pill">계산은 참고용</span>
+  </header>
+  <nav class="quick-nav" aria-label="카테고리 바로가기"><a href="index.html">전체 도구</a><a href="#money">돈·생활</a><a href="#career">취업·진로</a><a href="#study">공부 계획</a><a href="#existing">기존 도구</a><a href="workflows.html">AI 프롬프트</a><a href="resale-helper.html">중고판매 도우미</a><a href="resume-builder.html">이력서 작업실</a></nav>
+  <main class="wrap" id="main">
+    <h2 class="category" id="money">01 · 돈과 생활</h2>
+    <section class="grid" aria-label="돈과 생활 도구">
+      <article class="card" id="tuition">
+        <h2>등록금 부족분 계산</h2><p class="desc">등록금에서 장학금과 마련한 금액을 빼고, 남은 준비 기간의 월별 목표를 계산합니다.</p>
+        <div class="fields"><div class="field"><label for="tuitionTotal">등록금 총액</label><input id="tuitionTotal" type="number" min="0" step="10000" placeholder="예: 3500000"></div><div class="field"><label for="tuitionGrant">확정 장학금</label><input id="tuitionGrant" type="number" min="0" step="10000" placeholder="예: 1000000"></div><div class="field"><label for="tuitionSaved">이미 마련한 금액</label><input id="tuitionSaved" type="number" min="0" step="10000" placeholder="예: 500000"></div><div class="field"><label for="tuitionMonths">준비할 개월 수</label><input id="tuitionMonths" type="number" min="1" max="36" step="1" value="4"></div></div>
+        <div class="output"><span>추가로 준비할 금액</span><strong id="tuitionGap" aria-live="polite">금액을 입력해 주세요</strong><span id="tuitionMonthly" aria-live="polite">월별 목표가 여기에 표시됩니다.</span></div><p class="note">장학금은 확정된 금액만 입력하세요. 실제 납부액과 일정은 학교 공지를 확인하세요.</p>
+      </article>
+      <article class="card" id="rent">
+        <h2>주거비 간단 나누기</h2><p class="desc">월세·공과금 합계를 함께 사는 인원수로 나눠 1인당 평균을 확인합니다.</p>
+        <div class="fields"><div class="field"><label for="homeCost">월 주거비 합계</label><input id="homeCost" type="number" min="0" step="10000" placeholder="예: 720000"></div><div class="field"><label for="homePeople">함께 부담할 인원</label><input id="homePeople" type="number" min="1" max="20" step="1" value="2"></div></div>
+        <div class="output"><span>1인당 평균 부담액</span><strong id="homeShare" aria-live="polite">금액을 입력해 주세요</strong><span id="homeNote">균등 분담 기준입니다.</span></div><p class="note">방 크기나 계약 조건에 따른 차등 분담은 반영하지 않습니다.</p>
+      </article>
+      <article class="card" id="food">
+        <h2>남은 식비 하루 한도</h2><p class="desc">이번 달 식비 잔액을 남은 일수로 나눠 하루 평균 사용 가능액을 계산합니다.</p>
+        <div class="fields"><div class="field"><label for="foodBudget">이번 달 식비 예산</label><input id="foodBudget" type="number" min="0" step="10000" placeholder="예: 300000"></div><div class="field"><label for="foodSpent">현재까지 쓴 식비</label><input id="foodSpent" type="number" min="0" step="1000" placeholder="예: 125000"></div><div class="field"><label for="foodDays">예산을 쓸 남은 일수</label><input id="foodDays" type="number" min="1" max="31" step="1" placeholder="예: 18"></div></div>
+        <div class="output"><span>하루 평균 한도</span><strong id="foodDaily" aria-live="polite">금액을 입력해 주세요</strong><span id="foodRemaining"></span></div><p class="note">예산 관리를 돕는 단순 나눗셈이며 식단·영양 조언은 아닙니다.</p>
+      </article>
+    </section>
+    <h2 class="category" id="career">02 · 취업과 진로</h2>
+    <section class="grid" aria-label="취업과 진로 도구">
+      <article class="card" id="applications">
+        <h2>지원 현황 기록장</h2><p class="desc">회사와 직무, 지원일, 진행 단계를 기록하세요. 기록은 이 브라우저에만 보관됩니다.</p>
+        <form class="task-form" id="applicationForm"><div class="field"><label for="company">회사·기관</label><input id="company" maxlength="60" required placeholder="예: 가나다 회사"></div><div class="field"><label for="role">지원 직무</label><input id="role" maxlength="60" required placeholder="예: 콘텐츠 운영"></div><div class="field"><label for="appliedAt">지원일</label><input id="appliedAt" type="date" required></div><div class="field"><label for="stage">진행 단계</label><select id="stage"><option>준비 중</option><option>지원 완료</option><option>면접 예정</option><option>결과 대기</option><option>합격</option><option>종료</option></select></div><button class="btn wide" type="submit">지원 기록 추가</button></form>
+        <div class="task-list" id="applicationList" aria-live="polite"></div><p class="status" id="applicationStatus" role="status"></p><p class="note">개인정보 보호를 위해 주민번호·계정 비밀번호 같은 민감정보는 입력하지 마세요.</p>
+      </article>
+      <article class="card" id="study">
+        <h2>주간 공부 시간 배분</h2><p class="desc">이번 주에 쓸 총 공부 시간을 중요도 비율로 나눕니다. 비율은 본인이 정하세요.</p>
+        <div class="field"><label for="studyHours">이번 주 총 공부 가능 시간</label><input id="studyHours" type="number" min="0" max="168" step="0.5" inputmode="decimal" value="12"></div>
+        <div class="subject-list" id="subjectList"></div><div class="actions"><button class="btn secondary" id="addSubject" type="button">＋ 과목 추가</button><button class="btn" id="allocateStudy" type="button">시간 배분</button></div>
+        <div class="output"><span>권장 배분</span><div class="subject-result" id="studyResult" aria-live="polite">과목과 중요도를 입력한 뒤 계산하세요.</div></div><p class="note">결과는 시간 계획용 참고치입니다. 휴식·수업·통학 시간을 고려해 조정하세요.</p>
+      </article>
+    </section>
+    <h2 class="category" id="existing">03 · 기존 도구 바로가기</h2>
+    <section class="grid" aria-label="기존 캠퍼스 툴킷 도구">
+      <article class="card"><h2>학업·일정</h2><p class="desc">학점과 누적 목표, 과제 마감일, 장학금 신청 준비, 집중 타이머를 한 페이지에서 사용하세요.</p><a class="btn" href="index.html#grades">학점·일정 도구 열기</a></article>
+      <article class="card"><h2>알바·AI 업무</h2><p class="desc">세전 급여를 단순 추정하고, 학습 계획·고객 문의·소개글 등에 쓸 프롬프트를 만드세요.</p><div class="actions"><a class="btn secondary" href="index.html#wage">알바 급여 도구</a><a class="btn" href="workflows.html">AI 프롬프트 만들기</a></div></article>
+    </section>
+    <section class="card" style="margin:18px auto 28px"><h2>저장과 개인정보 안내</h2><p class="desc" style="margin-bottom:0">계산기 입력은 페이지 안에서만 사용합니다. 지원 현황은 현재 브라우저의 로컬 저장소에 저장되며, 기기 간 동기화되지 않습니다. 공용 기기에서는 사용 후 기록을 삭제하세요. 이 도구 모음은 취업·재정 결과를 보장하지 않으며, 공식 납부액·계약·기관 안내를 대신하지 않습니다.</p></section>
+  </main>
+  <footer class="wrap foot">캠퍼스 툴킷 · 대학생활을 돕는 무료 참고 도구 · <a href="index.html" style="color:inherit">첫 화면으로</a></footer>
+  <script>
+    const won = value => `${new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}).format(Math.round(value))}원`;
+    const valueOf = id => {
+      const raw = document.getElementById(id).value;
+      if (raw === '') return null;
+      const value = Number(raw);
+      return Number.isFinite(value) && value >= 0 ? value : null;
+    };
+    function calculateTuition() {
+      const total = valueOf('tuitionTotal');
+      const grantInput = document.getElementById('tuitionGrant');
+      const grant = valueOf('tuitionGrant') ?? 0;
+      const savedInput = document.getElementById('tuitionSaved');
+      const saved = valueOf('tuitionSaved') ?? 0;
+      if ((grantInput.value !== '' && valueOf('tuitionGrant') === null) || (savedInput.value !== '' && valueOf('tuitionSaved') === null)) {
+        document.getElementById('tuitionGap').textContent = '금액을 확인해 주세요';
+        document.getElementById('tuitionMonthly').textContent = '장학금과 마련한 금액은 0원 이상으로 입력하세요.';
+        return;
+      }
+      const monthsField = document.getElementById('tuitionMonths');
+      const months = Number(monthsField.value);
+      const gapOutput = document.getElementById('tuitionGap');
+      const monthlyOutput = document.getElementById('tuitionMonthly');
+      if (total === null) {
+        gapOutput.textContent = '등록금 총액을 입력해 주세요';
+        monthlyOutput.textContent = '장학금과 마련한 금액은 비워 두면 0원으로 계산합니다.';
+        return;
+      }
+      if (!Number.isInteger(months) || months < 1 || months > 36) {
+        gapOutput.textContent = '준비 기간을 확인해 주세요';
+        monthlyOutput.textContent = '1개월에서 36개월 사이로 입력해 주세요.';
+        return;
+      }
+      const balance = total - grant - saved;
+      const gap = Math.max(0, balance);
+      gapOutput.textContent = won(gap);
+      if (balance > 0) monthlyOutput.textContent = `월별 목표 약 ${won(Math.ceil(gap / months))} · ${months}개월 기준`;
+      else if (balance < 0) monthlyOutput.textContent = `등록금보다 ${won(Math.abs(balance))} 더 마련한 상태예요.`;
+      else monthlyOutput.textContent = '확정 장학금과 마련한 금액으로 등록금이 충당돼요.';
+    }
+    ['tuitionTotal','tuitionGrant','tuitionSaved','tuitionMonths'].forEach(id => document.getElementById(id).addEventListener('input', calculateTuition));
+
+    function calculateHome() {
+      const cost = valueOf('homeCost');
+      const peopleField = document.getElementById('homePeople');
+      const people = Number(peopleField.value);
+      const shareOutput = document.getElementById('homeShare');
+      const noteOutput = document.getElementById('homeNote');
+      if (cost === null) {
+        shareOutput.textContent = '주거비 합계를 입력해 주세요';
+        noteOutput.textContent = '월세와 공과금 등 나눌 금액을 입력하세요.';
+        return;
+      }
+      if (!Number.isInteger(people) || people < 1 || people > 20) {
+        shareOutput.textContent = '인원수를 확인해 주세요';
+        noteOutput.textContent = '1명에서 20명 사이의 정수로 입력하세요.';
+        return;
+      }
+      shareOutput.textContent = won(cost / people);
+      noteOutput.textContent = `${won(cost)} ÷ ${people}명 · 균등 분담 기준`;
+    }
+    ['homeCost','homePeople'].forEach(id => document.getElementById(id).addEventListener('input', calculateHome));
+
+    function calculateFood() {
+      const budget = valueOf('foodBudget');
+      const spent = valueOf('foodSpent');
+      const days = Number(document.getElementById('foodDays').value);
+      const dailyOutput = document.getElementById('foodDaily');
+      const remainingOutput = document.getElementById('foodRemaining');
+      if (budget === null || spent === null || !Number.isInteger(days) || days < 1 || days > 31) {
+        dailyOutput.textContent = '예산·사용액·남은 일수를 입력해 주세요';
+        remainingOutput.textContent = '현재까지 쓴 금액이 없으면 0을 입력하세요.';
+        return;
+      }
+      const left = budget - spent;
+      dailyOutput.textContent = left < 0 ? '예산 초과' : `${won(left / days)} / 일`;
+      remainingOutput.textContent = left < 0 ? `예산 초과 ${won(Math.abs(left))} · 남은 한도 0원` : `남은 식비 ${won(left)} · ${days}일 기준`;
+    }
+    ['foodBudget','foodSpent','foodDays'].forEach(id => document.getElementById(id).addEventListener('input', calculateFood));
+
+    const storeKey = 'campusToolkit.applications.v1';
+    const applicationList = document.getElementById('applicationList');
+    const applicationStatus = document.getElementById('applicationStatus');
+    const stages = ['준비 중','지원 완료','면접 예정','결과 대기','합격','종료'];
+    const isISODate = value => { if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false; const [year, month, day] = value.split('-').map(Number); const date = new Date(year, month - 1, day); return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day; };
+    function readApplications() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(storeKey) || '[]');
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(item => item && typeof item === 'object' && typeof item.id === 'string' && typeof item.company === 'string' && item.company.trim() && typeof item.role === 'string' && item.role.trim() && isISODate(item.appliedAt) && stages.includes(item.stage));
+      } catch { return []; }
+    }
+    function saveApplications(items) {
+      try {
+        localStorage.setItem(storeKey, JSON.stringify(items));
+        return true;
+      } catch {
+        applicationStatus.textContent = '브라우저 저장 공간을 사용할 수 없어요. 공간을 비운 뒤 다시 시도해 주세요.';
+        return false;
+      }
+    }
+    function renderApplications() {
+      applicationList.replaceChildren();
+      const items = readApplications().sort((a, b) => b.appliedAt.localeCompare(a.appliedAt));
+      if (!items.length) {
+        const empty = document.createElement('p');
+        empty.className = 'note';
+        empty.textContent = '아직 지원 기록이 없습니다.';
+        applicationList.append(empty);
+        return;
+      }
+      for (const item of items) {
+        const row = document.createElement('article');
+        row.className = 'task';
+        const info = document.createElement('div');
+        const title = document.createElement('strong');
+        title.textContent = `${item.company} · ${item.role}`;
+        const date = document.createElement('small');
+        date.textContent = `${item.appliedAt} · ${item.stage}`;
+        info.append(title, date);
+        const actions = document.createElement('div');
+        actions.className = 'task-actions';
+        const select = document.createElement('select');
+        select.setAttribute('aria-label', `${item.company} ${item.role} 진행 단계`);
+        stages.forEach(stage => {
+          const option = document.createElement('option');
+          option.value = stage;
+          option.textContent = stage;
+          option.selected = stage === item.stage;
+          select.append(option);
+        });
+        select.addEventListener('change', () => {
+          const updated = readApplications().map(entry => entry.id === item.id ? {...entry, stage:select.value} : entry);
+          if (saveApplications(updated)) {
+            renderApplications();
+            applicationStatus.textContent = '진행 단계를 저장했어요.';
+          }
+        });
+        const remove = document.createElement('button');
+        remove.className = 'mini';
+        remove.type = 'button';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', `${item.company} 지원 기록 삭제`);
+        remove.addEventListener('click', () => {
+          const updated = readApplications().filter(entry => entry.id !== item.id);
+          if (saveApplications(updated)) {
+            renderApplications();
+            applicationStatus.textContent = '기록을 삭제했어요.';
+          }
+        });
+        actions.append(select, remove);
+        row.append(info, actions);
+        applicationList.append(row);
+      }
+    }
+    const localDate = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const appliedAt = document.getElementById('appliedAt');
+    const applicationForm = document.getElementById('applicationForm');
+    appliedAt.value = localDate(new Date());
+    applicationForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const company = document.getElementById('company').value.trim();
+      const role = document.getElementById('role').value.trim();
+      if (!company || !role || !appliedAt.value) {
+        applicationStatus.textContent = '회사·직무·지원일을 모두 확인해 주세요.';
+        return;
+      }
+      const items = readApplications();
+      items.push({id:globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`, company, role, appliedAt:appliedAt.value, stage:document.getElementById('stage').value});
+      if (!saveApplications(items.slice(-100))) return;
+      applicationForm.reset();
+      appliedAt.value = localDate(new Date());
+      renderApplications();
+      applicationStatus.textContent = '지원 기록을 이 브라우저에 저장했어요.';
+    });
+    renderApplications();
+
+    const subjectList = document.getElementById('subjectList');
+    const subjectResult = document.getElementById('studyResult');
+    let subjectCount = 0;
+    function addSubject(name = '', weight = 1) {
+      const id = ++subjectCount;
+      const row = document.createElement('div');
+      row.className = 'row';
+      const nameField = document.createElement('div');
+      nameField.className = 'field';
+      const nameLabel = document.createElement('label');
+      nameLabel.htmlFor = `subject-${id}`;
+      nameLabel.textContent = '과목명';
+      const nameInput = document.createElement('input');
+      nameInput.id = `subject-${id}`;
+      nameInput.maxLength = 50;
+      nameInput.placeholder = '예: 전공 과목';
+      nameInput.value = name;
+      nameField.append(nameLabel, nameInput);
+      const weightField = document.createElement('div');
+      weightField.className = 'field';
+      const weightLabel = document.createElement('label');
+      weightLabel.htmlFor = `weight-${id}`;
+      weightLabel.textContent = '중요도';
+      const weightInput = document.createElement('input');
+      weightInput.id = `weight-${id}`;
+      weightInput.type = 'number';
+      weightInput.min = '1';
+      weightInput.max = '5';
+      weightInput.step = '1';
+      weightInput.value = weight;
+      weightInput.setAttribute('aria-label', '중요도 1에서 5');
+      weightField.append(weightLabel, weightInput);
+      const remove = document.createElement('button');
+      remove.className = 'remove';
+      remove.type = 'button';
+      remove.textContent = '×';
+      remove.setAttribute('aria-label', '과목 삭제');
+      remove.addEventListener('click', () => {
+        row.remove();
+        subjectResult.textContent = '과목 구성을 바꿨다면 다시 시간 배분을 눌러 주세요.';
+      });
+      row.append(nameField, weightField, remove);
+      subjectList.append(row);
+    }
+    addSubject('전공 과목', 3);
+    addSubject('교양 과목', 2);
+    document.getElementById('addSubject').addEventListener('click', () => {
+      if (subjectList.children.length < 12) addSubject();
+      else subjectResult.textContent = '과목은 최대 12개까지 넣을 수 있어요.';
+    });
+    document.getElementById('allocateStudy').addEventListener('click', () => {
+      const hoursField = document.getElementById('studyHours');
+      const hours = Number(hoursField.value);
+      const rows = [...subjectList.querySelectorAll('.row')];
+      subjectResult.replaceChildren();
+      if (hoursField.value === '' || !Number.isFinite(hours) || hours < 0 || hours > 168) {
+        subjectResult.textContent = '이번 주 시간을 0시간에서 168시간 사이로 입력해 주세요.';
+        return;
+      }
+      if (!rows.length) {
+        subjectResult.textContent = '과목을 하나 이상 추가해 주세요.';
+        return;
+      }
+      const subjects = rows.map(row => ({
+        name: row.querySelector('input:not([type]), input[type="text"]').value.trim() || '이름 없는 과목',
+        weight: Number(row.querySelector('input[type="number"]').value)
+      }));
+      if (subjects.some(item => !Number.isInteger(item.weight) || item.weight < 1 || item.weight > 5)) {
+        subjectResult.textContent = '각 과목 중요도를 1에서 5 사이의 정수로 입력해 주세요.';
+        return;
+      }
+      const totalWeight = subjects.reduce((sum, item) => sum + item.weight, 0);
+      const totalTenths = Math.round(hours * 10);
+      const allocations = subjects.map((item, index) => {
+        const exact = totalTenths * item.weight / totalWeight;
+        const units = Math.floor(exact);
+        return {index, units, fraction:exact - units};
+      });
+      const remainder = totalTenths - allocations.reduce((sum, item) => sum + item.units, 0);
+      [...allocations].sort((a, b) => b.fraction - a.fraction || a.index - b.index).slice(0, remainder).forEach(item => allocations[item.index].units++);
+      subjects.forEach((item, index) => {
+        const line = document.createElement('div');
+        const label = document.createElement('span');
+        const value = document.createElement('strong');
+        label.textContent = `${item.name} · 중요도 ${item.weight}`;
+        value.textContent = `${(allocations[index].units / 10).toFixed(1)}시간`;
+        line.append(label, value);
+        subjectResult.append(line);
+      });
+    });
+  </script>
+</body>
+</html>
