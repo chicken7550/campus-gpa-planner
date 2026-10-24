@@ -8,6 +8,7 @@
 
 **AI 업무 프롬프트 도구:** https://chicken7550.github.io/campus-gpa-planner/workflows.html
 **별도 실험 도구 — 중고판매 도우미:** https://chicken7550.github.io/campus-gpa-planner/resale-helper.html
+**별도 구직 도구 — 이력서 작업실:** https://chicken7550.github.io/campus-gpa-planner/resume-builder.html
 
 ## 들어 있는 도구
 
@@ -56,3 +57,7 @@
 ## 별도 실험 도구
 
 resale-helper.html은 캠퍼스 툴킷과 별도로 안 쓰는 물건을 판매할 때 쓰는 무료 도구입니다. 판매글 초안 작성, 사용자가 직접 입력하는 수수료·배송비 계산, 거래 전 안전 체크, 답장 문구 복사를 지원합니다. 입력은 브라우저에만 저장되며 거래 앱·결제 서비스와 연동되지 않습니다. 도구 자체가 판매를 중개하거나 자동 수익을 만들지는 않습니다.
+
+## 이력서 작업실
+
+resume-builder.html은 로그인·AI·유료 API 없이 한국어 이력서를 작성하고 실시간 미리보기와 인쇄·PDF 저장을 제공하는 독립 도구입니다. 공고에서 사용자가 직접 고른 핵심어가 작성 내용에 있는지 단순 문구 비교를 합니다. 합격이나 ATS 통과를 예측하지 않으며, 입력은 현재 브라우저에만 저장됩니다. 공개 이력서 빌더가 이미 많으므로 이 페이지는 가벼운 가입 없는 대안으로 포지셔닝합니다.

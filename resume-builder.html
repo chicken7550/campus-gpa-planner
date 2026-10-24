@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="로그인 없이 이력서 내용을 정리하고 공고 핵심어를 점검한 뒤 PDF로 저장하는 무료 이력서 작업실입니다.">
+<meta name="theme-color" content="#101827">
+<title>이력서 작업실 — 한국어 이력서 작성·PDF 저장</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1220;--panel:#151e2e;--text:#f4f7fb;--muted:#a8b5c7;--line:#2c3a4f;--mint:#7ce4c2;--blue:#9bc4ff;--warn:#ffcf8c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.top{padding:34px 0 20px}.eyebrow{color:var(--mint);font-size:12px;font-weight:850;letter-spacing:.14em}.top h1{font-size:clamp(30px,5.5vw,46px);letter-spacing:-.045em;line-height:1.1;margin:10px 0}.top p{color:var(--muted);max-width:760px;margin:0;font-size:16px}.pills{margin-top:12px}.pill{display:inline-block;border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px;margin:0 6px 0 0}.nav{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow:auto;padding:9px max(16px,calc((100vw - 1120px)/2));background:#0c1220ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav a{white-space:nowrap;color:#c3cedd;text-decoration:none;border:1px solid #34445a;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700}.nav a:hover,.nav a:focus-visible{color:var(--mint);border-color:var(--mint);outline:none}.workspace{display:grid;grid-template-columns:minmax(310px,.78fr) minmax(0,1.22fr);gap:18px;align-items:start;margin:20px auto 34px}.editor{display:grid;gap:13px}.panel{background:linear-gradient(155deg,rgba(27,39,57,.98),rgba(20,29,44,.98));border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:0 18px 45px #0002}.panel h2{font-size:17px;letter-spacing:-.02em;margin:0 0 4px}.desc,.note{color:var(--muted);font-size:12px;margin:0 0 12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{display:grid;gap:5px;min-width:0}.field.wide{grid-column:1/-1}.field label{color:var(--muted);font-size:11px;font-weight:750}.field input,.field textarea{width:100%;min-width:0;background:#101827;border:1px solid var(--line);border-radius:9px;color:var(--text);font:inherit;padding:9px 10px;outline:none}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px #7ce4c21c}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:0;border-radius:9px;background:var(--mint);color:#09251e;font:inherit;font-size:13px;font-weight:850;padding:9px 12px;cursor:pointer}.btn.secondary{background:#25364d;color:var(--text);border:1px solid #354761}.btn:hover{filter:brightness(1.07)}.status{min-height:18px;color:var(--warn);font-size:12px;margin:7px 0 0}.progress{margin-top:12px;background:#101827;border:1px solid var(--line);border-radius:10px;padding:10px}.progress-top{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.bar{height:6px;background:#27364b;border-radius:999px;margin-top:7px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--mint);border-radius:inherit;transition:width .2s}.paper-wrap{position:sticky;top:60px}.paper{min-height:840px;background:#fff;color:#1c2430;border-radius:4px;padding:48px 52px;box-shadow:0 20px 55px #0004;font-family:Arial,"Noto Sans KR",sans-serif}.paper-head{border-bottom:2px solid #25364d;padding-bottom:18px;margin-bottom:21px}.paper h2{font-size:31px;letter-spacing:-.04em;margin:0;color:#121c2a}.paper-head .headline{color:#42617e;font-size:15px;font-weight:700;margin:5px 0 8px}.contacts{color:#536477;font-size:11px;overflow-wrap:anywhere}.paper-section{margin:17px 0 0}.paper-section h3{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:#52708d;border-bottom:1px solid #d8e0e8;padding-bottom:5px;margin:0 0 8px}.paper-section p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.65}.paper-section[hidden]{display:none}.keyword-result{display:grid;gap:7px;margin-top:9px}.keyword-group{font-size:11px;color:var(--muted)}.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.tag{display:inline-flex;border-radius:999px;padding:3px 8px;background:#213044;color:#ccd8e8;font-size:11px}.tag.found{background:#164a3c;color:#b9f1dd}.tag.missing{background:#463a25;color:#ffdfa4}.privacy{border:1px solid #354761;background:#101827;border-radius:10px;padding:10px;color:#c3cedd;font-size:11px;margin-top:11px}.footer{color:#8493a7;font-size:11px;padding:0 0 25px}.skip{position:absolute;left:-9999px;top:4px}.skip:focus{left:8px;z-index:9;background:var(--mint);color:#09251e;padding:8px 12px;border-radius:8px}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.paper-wrap{position:static}.paper{min-height:700px}}@media(max-width:520px){.wrap{width:calc(100% - 20px)}.top{padding-top:26px}.workspace{gap:13px}.panel{padding:14px}.fields{grid-template-columns:1fr}.field.wide{grid-column:auto}.paper{padding:30px 24px;min-height:650px}.paper h2{font-size:26px}}
+@page{size:A4;margin:14mm}
+@media print{body{background:#fff;color:#111;font-size:12px}.top,.nav,.editor,.footer{display:none!important}.wrap{width:auto;margin:0}.workspace{display:block;margin:0}.paper-wrap{position:static}.paper{width:100%;min-height:0;margin:0;padding:0;border-radius:0;box-shadow:none;color:#182230;break-inside:avoid}.paper h2{font-size:26px}.paper-section{break-inside:avoid}.paper-section p{font-size:10.5px;line-height:1.55}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="wrap top">
+<div class="eyebrow">CLEARCV · FREE WORKSPACE</div>
+<h1>경험을 정리하고,<br>이력서 한 장으로</h1>
+<p>경력·프로젝트·기술을 채우면 오른쪽에서 이력서가 바로 완성됩니다. 공고 핵심어를 빠뜨렸는지 확인하고 브라우저에서 PDF로 저장하세요.</p>
+<div class="pills"><span class="pill">무료 · 로그인 없음</span><span class="pill">이력서는 기기 안에만 저장</span><span class="pill">AI·유료 API 없음</span></div>
+</header>
+<nav class="nav" aria-label="도구 바로가기"><a href="#identity">기본 정보</a><a href="#experience">경험</a><a href="#match">공고 키워드</a><a href="index.html">캠퍼스 툴킷</a><a href="resale-helper.html">중고판매 도우미</a></nav>
+<main class="wrap workspace" id="main">
+<div class="editor">
+<section class="panel" id="identity">
+<h2>기본 정보</h2><p class="desc">지원 직무와 이력서 상단에 필요한 정보만 적으세요.</p>
+<div class="fields">
+<div class="field"><label for="name">이름</label><input id="name" maxlength="60" placeholder="예: 김지원"></div>
+<div class="field"><label for="role">지원 직무·한 줄 소개</label><input id="role" maxlength="100" placeholder="예: 고객 경험을 개선하는 운영 지원 인재"></div>
+<div class="field"><label for="email">이메일</label><input id="email" type="email" maxlength="120" placeholder="예: name@example.com"></div>
+<div class="field"><label for="phone">연락처 (선택)</label><input id="phone" type="tel" maxlength="40" placeholder="예: 010-0000-0000"></div>
+<div class="field wide"><label for="link">포트폴리오·LinkedIn 링크 (선택)</label><input id="link" maxlength="180" placeholder="예: portfolio.example.com"></div>
+<div class="field wide"><label for="summary">소개</label><textarea id="summary" maxlength="700" placeholder="강점과 지원 직무의 연결을 구체적으로 적으세요."></textarea></div>
+</div>
+<div class="progress"><div class="progress-top"><span>작성 진행도</span><span id="progressLabel">0 / 5</span></div><div class="bar"><span id="progressBar"></span></div></div>
+</section>
+<section class="panel" id="experience">
+<h2>경험을 근거와 함께</h2><p class="desc">한 줄에 하나씩 작성하세요. 수치와 성과는 실제로 확인되는 내용만 넣으세요.</p>
+<div class="fields">
+<div class="field wide"><label for="experienceText">경력·활동</label><textarea id="experienceText" maxlength="1800" placeholder="2024.03–2025.02 | 해봄상점 · 운영 보조&#10;• 주문·재고 기록을 정리하고 고객 문의를 응대&#10;&#10;기간 | 조직 · 역할&#10;• 내가 맡은 일과 실제 결과"></textarea></div>
+<div class="field wide"><label for="projectText">프로젝트·성과</label><textarea id="projectText" maxlength="1400" placeholder="프로젝트명 | 내 역할&#10;• 해결한 문제, 사용한 도구, 확인 가능한 결과"></textarea></div>
+<div class="field wide"><label for="educationText">학력·교육·자격</label><textarea id="educationText" maxlength="1000" placeholder="기간 | 학교·기관 · 전공 또는 과정&#10;관련 자격이나 교육"></textarea></div>
+<div class="field wide"><label for="skills">기술·역량 (쉼표로 구분)</label><textarea id="skills" maxlength="500" placeholder="고객 응대, Excel, 재고 관리"></textarea></div>
+</div>
+</section>
+<section class="panel" id="match">
+<h2>공고 핵심어 점검</h2><p class="desc">채용 공고에서 직접 고른 핵심어를 쉼표나 줄바꿈으로 나눠 적으세요.</p>
+<div class="field"><label for="keywords">확인할 핵심어</label><textarea id="keywords" maxlength="500" placeholder="예: 고객 응대, Excel, 재고 관리"></textarea></div>
+<div class="keyword-result" id="keywordResult" aria-live="polite"><span class="keyword-group">핵심어를 입력하면 이력서 본문에서 같은 표현이 있는지 확인합니다.</span></div>
+<p class="note">단순 문구 포함 여부만 보는 참고 기능입니다. 채용 시스템 통과나 합격을 예측하지 않습니다.</p>
+</section>
+<section class="panel">
+<h2>내보내기</h2><p class="desc">종이에 잘 맞는 한 칸 이력서를 인쇄하거나 PDF로 저장합니다.</p>
+<div class="actions"><button class="btn" id="printBtn" type="button">인쇄 · PDF 저장</button><button class="btn secondary" id="sampleBtn" type="button">예시 채우기</button><button class="btn secondary" id="clearBtn" type="button">초안 지우기</button></div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<div class="privacy">주민등록번호, 집 주소, 계정 비밀번호는 적지 마세요. 이 페이지는 내용을 서버로 전송하지 않습니다. 공용 기기에서는 사용 후 초안을 지우세요.</div>
+</section>
+</div>
+<div class="paper-wrap">
+<article class="paper" aria-label="이력서 미리보기">
+<header class="paper-head"><h2 id="previewName">이름</h2><p class="headline" id="previewRole">지원 직무·한 줄 소개</p><div class="contacts" id="previewContacts"></div></header>
+<section class="paper-section" id="sectionSummary"><h3>소개</h3><p id="previewSummary"></p></section>
+<section class="paper-section" id="sectionExperience"><h3>경력 · 활동</h3><p id="previewExperience"></p></section>
+<section class="paper-section" id="sectionProjects"><h3>프로젝트 · 성과</h3><p id="previewProjects"></p></section>
+<section class="paper-section" id="sectionEducation"><h3>학력 · 교육 · 자격</h3><p id="previewEducation"></p></section>
+<section class="paper-section" id="sectionSkills"><h3>기술 · 역량</h3><p id="previewSkills"></p></section>
+</article>
+</div>
+</main>
+<footer class="wrap footer">CLEARCV는 이력서 작성을 돕는 형식 도구입니다. 작성 내용의 정확성, 채용 요건, 제출 방법은 지원자가 확인하세요.</footer>
+<script>
+(()=>{
+const key="clearcv-draft-v1",ids=["name","role","email","phone","link","summary","experienceText","projectText","educationText","skills","keywords"],el=id=>document.getElementById(id);
+const read=()=>{try{return JSON.parse(localStorage.getItem(key)||"{}")}catch{return {}}};
+const save=()=>{const data={};ids.forEach(id=>data[id]=el(id).value);try{localStorage.setItem(key,JSON.stringify(data));announce("초안이 이 브라우저에 저장됐어요.")}catch{announce("브라우저 저장 공간을 사용할 수 없어요.")}};
+let timer;
+function announce(text){el("status").textContent=text;clearTimeout(timer);timer=setTimeout(()=>el("status").textContent="",2600)}
+function section(sectionId,textId,value){el(textId).textContent=value;el(sectionId).hidden=!value.trim()}
+function render(){
+const name=el("name").value.trim(),role=el("role").value.trim();
+el("previewName").textContent=name||"이름";el("previewRole").textContent=role||"지원 직무·한 줄 소개";
+const contacts=[el("email").value.trim(),el("phone").value.trim(),el("link").value.trim()].filter(Boolean);el("previewContacts").textContent=contacts.join("  ·  ");
+section("sectionSummary","previewSummary",el("summary").value);
+section("sectionExperience","previewExperience",el("experienceText").value);
+section("sectionProjects","previewProjects",el("projectText").value);
+section("sectionEducation","previewEducation",el("educationText").value);
+section("sectionSkills","previewSkills",el("skills").value);
+const count=[name,role,el("summary").value.trim(),el("experienceText").value.trim()||el("projectText").value.trim(),el("skills").value.trim()].filter(Boolean).length;
+el("progressLabel").textContent=count+" / 5";el("progressBar").style.width=(count*20)+"%";
+const terms=[...new Set(el("keywords").value.split(/[\n,，;；]+/).map(x=>x.trim()).filter(Boolean))],body=ids.slice(0,10).map(id=>el(id).value.toLocaleLowerCase()).join("\n"),result=el("keywordResult");result.replaceChildren();
+if(!terms.length){const hint=document.createElement("span");hint.className="keyword-group";hint.textContent="핵심어를 입력하면 이력서 본문에서 같은 표현이 있는지 확인합니다.";result.append(hint);return}
+const found=terms.filter(t=>body.includes(t.toLocaleLowerCase())),missing=terms.filter(t=>!body.includes(t.toLocaleLowerCase()));
+[[found,"본문에서 확인"],[missing,"본문에 없는 표현"]].forEach(([list,label])=>{if(!list.length)return;const group=document.createElement("div");group.className="keyword-group";group.textContent=label;const tags=document.createElement("div");tags.className="tags";list.forEach(term=>{const tag=document.createElement("span");tag.className="tag "+(label==="본문에서 확인"?"found":"missing");tag.textContent=term;tags.append(tag)});group.append(tags);result.append(group)});
+}
+const draft=read();ids.forEach(id=>{if(draft[id]!==undefined)el(id).value=draft[id];el(id).addEventListener("input",()=>{render();clearTimeout(timer);timer=setTimeout(save,350)})});
+el("printBtn").addEventListener("click",()=>window.print());
+el("sampleBtn").addEventListener("click",()=>{const sample={name:"김지원",role:"고객 경험을 개선하는 운영 지원 인재",email:"jiwon.kim@example.com",phone:"010-0000-0000",link:"portfolio.example.com",summary:"매장 운영과 고객 응대 경험을 바탕으로 반복되는 업무를 차분히 정리합니다. 확인 가능한 사실을 정확하게 기록하고, 팀이 함께 쓰기 쉬운 안내 방식을 만드는 데 관심이 있습니다.",experienceText:"2024.03–2025.02 | 해봄상점 · 운영 보조\n• 일일 주문과 재고 기록을 정리하고 고객 문의를 응대\n• 반복 문의에 필요한 안내 문구를 정리해 팀원과 공유",projectText:"문의 안내 정리 | 운영 보조\n• 자주 묻는 질문을 유형별로 모아 답변 초안 작성\n• 팀 내부 검토를 받아 안내 문구를 업데이트",educationText:"2022.03–2026.02 | 해봄대학교 · 경영학 전공\nExcel 실무 기초 과정 수료",skills:"고객 응대, Excel, 문서 정리, 재고 관리",keywords:"고객 응대, Excel, 재고 관리"};ids.forEach(id=>el(id).value=sample[id]||"");render();try{localStorage.setItem(key,JSON.stringify(sample))}catch{}announce("가상 예시를 채웠어요. 본인 경험으로 바꿔 사용하세요.")});
+el("clearBtn").addEventListener("click",()=>{ids.forEach(id=>el(id).value="");try{localStorage.removeItem(key)}catch{}render();announce("이 브라우저에 저장된 초안을 지웠어요.")});
+render();
+})();
+</script>
+</body>
+</html>
