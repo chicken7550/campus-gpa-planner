@@ -24,7 +24,7 @@
   <header class="wrap top">
     <span class="eyebrow">캠퍼스 툴킷 · 생활비 도구</span>
     <h1>다음 수입일까지<br>하루 얼마를 써도 될까?</h1>
-    <p>지금 쓸 수 있는 돈에서 예비금을 빼고, 남은 날짜로 나눠 하루 기준 예산을 확인하세요. 금액은 이 기기에서만 계산하며 서버로 보내지 않습니다.</p>
+    <p>지금 쓸 수 있는 돈에서 예비금과 다음 수입일 전 예정 지출을 빼고, 남은 날짜로 나눠 하루 기준 예산을 확인하세요. 금액은 이 기기에서만 계산하며 서버로 보내지 않습니다.</p>
     <div class="pills"><span class="pill">로그인·설치 없음</span><span class="pill">입력값 저장 안 함</span><span class="pill">공유할 때 금액 숨김 기본</span></div>
   </header>
   <nav aria-label="관련 도구"><a href="index.html">캠퍼스 툴킷</a><a href="index.html#budget">이번 달 생활비</a><a href="gpa-target.html">목표 학점 계산</a><a href="resale-profit.html">중고 정산액</a><a href="toolbox.html">전체 도구</a></nav>
@@ -35,10 +35,12 @@
       <div class="fields">
         <div class="field"><label for="remaining">현재 쓸 수 있는 금액 (원)</label><input id="remaining" type="number" min="0" step="1000" inputmode="numeric" placeholder="예: 100000"></div>
         <div class="field"><label for="days">다음 수입일까지 남은 날짜</label><input id="days" type="number" min="1" max="366" step="1" inputmode="numeric" placeholder="예: 8"></div>
+        <div class="field"><label for="nextPayDate">다음 수입일 (선택)</label><input id="nextPayDate" type="date"></div>
         <div class="field"><label for="reserve">남겨둘 예비금 (원, 선택)</label><input id="reserve" type="number" min="0" step="1000" inputmode="numeric" placeholder="예: 0"></div>
+        <div class="field"><label for="plannedExpense">그 전에 나갈 예정 지출 (원, 선택)</label><input id="plannedExpense" type="number" min="0" step="1000" inputmode="numeric" placeholder="예: 15000"></div>
       </div>
-      <p class="hint">예비금은 계산에서 먼저 제외합니다. 금액과 날짜를 직접 확인해 입력하세요.</p>
-      <div class="actions"><button class="btn" id="calculate" type="button">하루 예산 계산</button><button class="btn secondary" id="sample" type="button">예시로 보기 · 10만 원 / 8일</button></div>
+      <p class="hint">다음 수입일을 고르면 남은 날짜가 자동 입력됩니다. 고정비처럼 그 전에 나갈 지출과 예비금도 먼저 빼세요.</p>
+      <div class="actions"><button class="btn" id="calculate" type="button">하루 예산 계산</button><button class="btn secondary" id="sample" type="button">예시 보기 · 예비금과 예정 지출 반영</button></div>
       <div class="output" aria-live="polite" aria-atomic="true"><span>하루 기준 예산</span><strong id="dailyAmount">—</strong><small id="breakdown">금액과 날짜를 입력하면 계산돼요.</small></div>
       <p class="status" id="status" role="status" aria-live="polite"></p>
       <p class="note">하루 예산은 지출 계획을 돕는 단순 나눗셈입니다. 정기결제·예상치 못한 비용은 따로 고려하세요.</p>
@@ -61,8 +63,8 @@
   <section class="wrap card faq" aria-labelledby="formula-title">
     <h2 id="formula-title">계산 방법과 자주 묻는 질문</h2>
     <p class="desc">계산식은 간단하게 공개합니다.</p>
-    <ul class="formula"><li>배분 가능액 = 현재 쓸 수 있는 금액 − 남겨둘 예비금</li><li>하루 기준 예산 = 배분 가능액 ÷ 다음 수입일까지 남은 날짜</li></ul>
-    <details><summary>예비금이 현재 금액보다 크면 어떻게 되나요?</summary><p>배분 가능액을 0원으로 처리하고, 예비금이 남은 금액보다 크다는 안내를 보여줍니다. 부족한 돈을 빌리거나 투자하라고 권하지 않습니다.</p></details>
+    <ul class="formula"><li>배분 가능액 = 현재 쓸 수 있는 금액 − 예비금 − 다음 수입일 전 예정 지출</li><li>하루 기준 예산 = 배분 가능액 ÷ 다음 수입일까지 남은 날짜</li></ul>
+    <details><summary>예비금과 예정 지출이 현재 금액보다 크면 어떻게 되나요?</summary><p>배분 가능액을 0원으로 처리하고, 제외한 금액이 현재 쓸 수 있는 금액보다 크다는 안내를 보여줍니다. 부족한 돈을 빌리거나 투자하라고 권하지 않습니다.</p></details>
     <details><summary>입력한 금액이 저장되나요?</summary><p>아니요. 이 페이지는 입력값을 로컬 저장소나 서버에 기록하지 않습니다. 페이지를 닫으면 입력값은 사라집니다.</p></details>
     <details><summary>하루 예산이 지출 가능액을 보장하나요?</summary><p>아니요. 사용자가 입력한 값으로 나눈 참고치입니다. 고정비, 자동 결제, 식비 외 필수 지출은 직접 반영해야 합니다.</p></details>
     <p><a href="index.html#budget">이번 달 수입·지출 전체 보기</a> · <a href="toolbox.html#money">식비 하루 한도 계산</a></p>
@@ -72,19 +74,33 @@
     const el=id=>document.getElementById(id), won=n=>new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}).format(Math.round(n))+'원';
     let daily=null;
     function calculate(){
+      daily=null;el('dailyAmount').textContent='—';el('breakdown').textContent='금액과 날짜를 확인해 주세요.';el('downloadCard').disabled=true;renderCard();
       const amount=el('remaining').value===''?null:Number(el('remaining').value);
       const days=el('days').value===''?null:Number(el('days').value);
       const reserve=el('reserve').value===''?0:Number(el('reserve').value);
-      if(amount===null||!Number.isFinite(amount)||amount<0||!Number.isInteger(days)||days<1||days>366||!Number.isFinite(reserve)||reserve<0){el('status').textContent='0원 이상의 금액, 1~366일 사이의 날짜를 확인해 주세요.';return;}
-      const available=Math.max(0,amount-reserve); daily=available/days;
+      const planned=el('plannedExpense').value===''?0:Number(el('plannedExpense').value);
+      if(amount===null||!Number.isFinite(amount)||amount<0||!Number.isInteger(days)||days<1||days>366||!Number.isFinite(reserve)||reserve<0||!Number.isFinite(planned)||planned<0){el('status').textContent='금액은 0원 이상, 날짜는 1~366일 사이로 입력해 주세요.';return;}
+      const available=Math.max(0,amount-reserve-planned); daily=available/days;
       el('dailyAmount').textContent=won(daily)+' / 일';
-      el('breakdown').textContent=`${won(amount)} − 예비금 ${won(reserve)} = ${won(available)} · ${days}일 기준`;
-      el('status').textContent=reserve>amount?'예비금이 현재 쓸 수 있는 금액보다 커서 하루 기준 예산을 0원으로 계산했어요.':'계산 완료. 입력값은 저장하거나 전송하지 않았어요.';
+      el('breakdown').textContent=`${won(amount)} − 예비금 ${won(reserve)} − 예정 지출 ${won(planned)} = ${won(available)} · ${days}일 기준`;
+      el('status').textContent=reserve+planned>amount?'예비금과 예정 지출 합계가 현재 금액보다 커서 하루 기준 예산을 0원으로 계산했어요.':'계산 완료. 입력값은 저장하거나 전송하지 않았어요.';
       el('downloadCard').disabled=false; renderCard();
     }
     function renderCard(){el('cardResult').textContent=el('includeResult').checked&&daily!==null?won(daily)+' / 일':'내 하루 예산은 화면에서 확인';}
     el('calculate').addEventListener('click',calculate);
-    el('sample').addEventListener('click',()=>{el('remaining').value='100000';el('days').value='8';el('reserve').value='0';calculate();});
+    function fillDaysFromPayDate(){
+      const value=el('nextPayDate').value;
+      if(!value)return;
+      const [year,month,day]=value.split('-').map(Number);
+      const target=new Date(year,month-1,day);target.setHours(0,0,0,0);
+      const today=new Date();today.setHours(0,0,0,0);
+      const distance=Math.round((target-today)/86400000);
+      if(distance<1||distance>366){el('days').value='';el('status').textContent='다음 수입일은 오늘 이후 366일 안으로 선택해 주세요.';return;}
+      el('days').value=String(distance);el('status').textContent='선택한 날짜까지 남은 날을 입력했어요. 오늘을 포함할지 여부는 본인 지출 계획에 맞춰 확인하세요.';
+    }
+    el('nextPayDate').addEventListener('change',fillDaysFromPayDate);
+    el('days').addEventListener('input',()=>{if(el('nextPayDate').value)el('nextPayDate').value='';});
+    el('sample').addEventListener('click',()=>{el('remaining').value='100000';el('days').value='8';el('nextPayDate').value='';el('reserve').value='20000';el('plannedExpense').value='15000';calculate();});
     el('includeResult').addEventListener('change',renderCard);
     el('copyLink').addEventListener('click',async()=>{const title='월말 하루 예산 계산기',text='남은 생활비와 날짜로 하루 기준 예산을 확인해 보세요. 계산 금액은 공유하지 않습니다.',url='https://chicken7550.github.io/campus-gpa-planner/daily-budget.html';try{if(navigator.share){await navigator.share({title,text,url});el('shareStatus').textContent='공유 메뉴를 열었어요.';}else{await navigator.clipboard.writeText(text+' '+url);el('shareStatus').textContent='금액을 제외한 공유 문구를 복사했어요.';}}catch(error){el('shareStatus').textContent=error&&error.name==='AbortError'?'공유를 취소했어요.':'공유를 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
     el('downloadCard').addEventListener('click',()=>{
