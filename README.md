@@ -4,6 +4,7 @@
 
 **공개 페이지:** https://chicken7550.github.io/campus-gpa-planner/  
 **AI 업무 프롬프트 도구:** https://chicken7550.github.io/campus-gpa-planner/workflows.html
+**돈·취업·공부 도구:** https://chicken7550.github.io/campus-gpa-planner/toolbox.html
 
 ## 들어 있는 도구
 
@@ -17,12 +18,16 @@
 - 주간 목표·실행·장애물·다음 행동 자기 점검
 - AI 업무 프롬프트 생성, 복사·Markdown 다운로드, 즐겨찾기 저장
 - 인쇄 및 PDF 저장, 페이지 주소 복사
+- 등록금 부족분과 월별 준비 목표 계산
+- 주거비 분담 및 잔여 식비 하루 한도 계산
+- 취업 지원 현황 기록 (브라우저 내 저장)
+- 중요도 비율에 따른 주간 공부 시간 배분
 
 `workflows.html`에서 학습 계획, 고객 문의, 상품 소개, SNS 게시물용 프롬프트를 입력값에 맞춰 만들 수 있습니다. AI API를 호출하지 않으며, 즐겨찾기는 브라우저에만 저장됩니다.
 
 ## 무료 배포
 
-1. GitHub 저장소의 최상위에 `index.html`, `workflows.html`, `README.md`를 올립니다.
+1. GitHub 저장소의 최상위에 `index.html`, `workflows.html`, `toolbox.html`, `README.md`를 올립니다.
 2. **Settings → Pages**에서 `Deploy from a branch`, `main`, `/(root)`를 선택합니다.
 3. 생성된 `github.io` 주소를 열어 페이지가 배포됐는지 확인합니다.
 
