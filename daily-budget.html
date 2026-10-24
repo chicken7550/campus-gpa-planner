@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="남은 생활비와 다음 수입일까지 남은 날짜를 입력해 하루 기준 예산을 계산하세요. 예비금을 따로 빼고, 결과를 개인정보 없이 공유할 수 있습니다.">
+  <meta name="theme-color" content="#101827">
+  <link rel="canonical" href="https://chicken7550.github.io/campus-gpa-planner/daily-budget.html">
+  <meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="캠퍼스 툴킷"><meta property="og:type" content="website">
+  <meta property="og:url" content="https://chicken7550.github.io/campus-gpa-planner/daily-budget.html">
+  <meta property="og:title" content="월말 하루 예산 계산기 — 캠퍼스 툴킷"><meta property="og:description" content="남은 생활비를 날짜로 나눠 하루 기준 예산을 확인하세요.">
+  <meta name="twitter:card" content="summary"><title>월말 하루 예산 계산기 — 남은 생활비·남은 날짜 | 캠퍼스 툴킷</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1220;--surface:#141d2c;--line:#29384d;--text:#edf3fb;--muted:#9aabc0;--mint:#7ce4c2;--blue:#91b7ff;--warn:#ffcf8b}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+    a{color:var(--mint)}.wrap{width:min(900px,calc(100% - 32px));margin:auto}.top{padding:32px 0 20px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.12em}.top h1{font-size:clamp(30px,6vw,46px);line-height:1.1;letter-spacing:-.04em;margin:10px 0}.top p{max-width:680px;color:var(--muted);margin:0}.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.pill{border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px}
+    nav{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow:auto;padding:9px max(16px,calc((100vw - 900px)/2));background:#0c1220ed;border-bottom:1px solid var(--line)}nav a{white-space:nowrap;text-decoration:none;color:#c3cedd;border:1px solid #34445a;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700}
+    main{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.85fr);gap:16px;margin:20px auto 36px}.card{min-width:0;border:1px solid var(--line);border-radius:18px;padding:20px;background:linear-gradient(155deg,#1b2739fa,#141d2cfa);box-shadow:0 18px 50px #0002}.card h2{margin:0 0 7px;font-size:20px}.desc,.note{color:var(--muted);font-size:13px;margin:0 0 15px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;min-width:0}.field label{color:#bdc9d8;font-size:13px;font-weight:700}.field input{width:100%;min-width:0;padding:11px 12px;background:#101827;color:var(--text);border:1px solid #34445a;border-radius:10px;font:inherit}.field input:focus-visible,button:focus-visible,a:focus-visible,input[type=checkbox]:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.hint{color:var(--muted);font-size:11px;margin:5px 0 0}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--mint);color:#09251e;font:inherit;font-weight:800;cursor:pointer}.btn.secondary{border:1px solid #354761;background:#25364d;color:var(--text)}.btn:disabled{opacity:.5;cursor:not-allowed}.output{margin-top:15px;padding:15px;background:#101827;border:1px solid var(--line);border-radius:13px}.output span,.output small{display:block;color:var(--muted);font-size:12px}.output strong{display:block;margin:3px 0;font-size:clamp(28px,6vw,40px);letter-spacing:-.04em;color:var(--mint);font-variant-numeric:tabular-nums}.status{min-height:22px;margin:9px 0 0;color:var(--warn);font-size:13px}.share-card{margin-top:12px;padding:18px;border:1px solid #37506a;border-radius:14px;background:linear-gradient(135deg,#1e3650,#10231f);aspect-ratio:1.9;display:flex;flex-direction:column;justify-content:space-between}.share-card .brand{color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.08em}.share-card strong{font-size:clamp(21px,4vw,32px);line-height:1.2}.share-card p,.share-card small{margin:0;color:#d2deeb}.share-card small{font-size:10px;overflow-wrap:anywhere}.consent{display:flex;gap:8px;align-items:flex-start;margin:12px 0;color:#cbd6e3;font-size:12px}.consent input{accent-color:var(--mint);margin-top:4px}.formula{padding-left:18px;color:#cbd6e3}.faq{margin:0 auto 34px}.faq details{padding:13px 0;border-top:1px solid var(--line)}.faq summary{cursor:pointer;font-weight:750}.faq details p{color:var(--muted);font-size:14px;margin-bottom:0}.foot{padding-bottom:28px;color:#8493a7;font-size:12px}.skip{position:absolute;left:-9999px}.skip:focus{left:10px;top:8px;z-index:20;background:var(--mint);color:#09251e;padding:8px;border-radius:6px}
+    @media(max-width:680px){main{grid-template-columns:1fr}.fields{grid-template-columns:1fr 1fr}.card{padding:16px}}@media(max-width:380px){.fields{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#calculator">계산기로 바로가기</a>
+  <header class="wrap top">
+    <span class="eyebrow">캠퍼스 툴킷 · 생활비 도구</span>
+    <h1>다음 수입일까지<br>하루 얼마를 써도 될까?</h1>
+    <p>지금 쓸 수 있는 돈에서 예비금을 빼고, 남은 날짜로 나눠 하루 기준 예산을 확인하세요. 금액은 이 기기에서만 계산하며 서버로 보내지 않습니다.</p>
+    <div class="pills"><span class="pill">로그인·설치 없음</span><span class="pill">입력값 저장 안 함</span><span class="pill">공유할 때 금액 숨김 기본</span></div>
+  </header>
+  <nav aria-label="관련 도구"><a href="index.html">캠퍼스 툴킷</a><a href="index.html#budget">이번 달 생활비</a><a href="gpa-target.html">목표 학점 계산</a><a href="resale-profit.html">중고 정산액</a><a href="toolbox.html">전체 도구</a></nav>
+  <main class="wrap" id="calculator">
+    <section class="card" aria-labelledby="calc-title">
+      <h2 id="calc-title">하루 기준 예산 계산</h2>
+      <p class="desc">월세·교통비 등 이미 따로 빼둔 돈은 제외하고, 실제로 남은 금액을 입력하세요.</p>
+      <div class="fields">
+        <div class="field"><label for="remaining">현재 쓸 수 있는 금액 (원)</label><input id="remaining" type="number" min="0" step="1000" inputmode="numeric" placeholder="예: 100000"></div>
+        <div class="field"><label for="days">다음 수입일까지 남은 날짜</label><input id="days" type="number" min="1" max="366" step="1" inputmode="numeric" placeholder="예: 8"></div>
+        <div class="field"><label for="reserve">남겨둘 예비금 (원, 선택)</label><input id="reserve" type="number" min="0" step="1000" inputmode="numeric" placeholder="예: 0"></div>
+      </div>
+      <p class="hint">예비금은 계산에서 먼저 제외합니다. 금액과 날짜를 직접 확인해 입력하세요.</p>
+      <div class="actions"><button class="btn" id="calculate" type="button">하루 예산 계산</button><button class="btn secondary" id="sample" type="button">예시로 보기 · 10만 원 / 8일</button></div>
+      <div class="output" aria-live="polite" aria-atomic="true"><span>하루 기준 예산</span><strong id="dailyAmount">—</strong><small id="breakdown">금액과 날짜를 입력하면 계산돼요.</small></div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <p class="note">하루 예산은 지출 계획을 돕는 단순 나눗셈입니다. 정기결제·예상치 못한 비용은 따로 고려하세요.</p>
+    </section>
+    <section class="card" aria-labelledby="share-title">
+      <h2 id="share-title">금액 없이 결과 공유</h2>
+      <p class="desc">공유 카드에는 계산 금액을 기본으로 숨겨 둡니다. 금액을 넣으려면 직접 선택하세요.</p>
+      <div class="share-card" id="shareCard" aria-label="공유용 월말 예산 카드">
+        <span class="brand">캠퍼스 툴킷 · 월말 예산</span>
+        <strong id="cardResult">내 하루 예산은 화면에서 확인</strong>
+        <p>남은 금액과 날짜로 하루 기준을 세워보세요.</p>
+        <small>chicken7550.github.io/campus-gpa-planner/daily-budget.html</small>
+      </div>
+      <label class="consent"><input id="includeResult" type="checkbox"><span>공유 이미지에 내 계산 결과 금액 포함</span></label>
+      <div class="actions"><button class="btn secondary" id="downloadCard" type="button" disabled>공유 카드 PNG 저장</button><button class="btn secondary" id="copyLink" type="button">공유 문구 복사</button></div>
+      <p class="status" id="shareStatus" role="status" aria-live="polite"></p>
+      <p class="note">공유 이미지 생성은 브라우저 안에서 처리합니다. 입력 금액은 전송되거나 저장되지 않습니다.</p>
+    </section>
+  </main>
+  <section class="wrap card faq" aria-labelledby="formula-title">
+    <h2 id="formula-title">계산 방법과 자주 묻는 질문</h2>
+    <p class="desc">계산식은 간단하게 공개합니다.</p>
+    <ul class="formula"><li>배분 가능액 = 현재 쓸 수 있는 금액 − 남겨둘 예비금</li><li>하루 기준 예산 = 배분 가능액 ÷ 다음 수입일까지 남은 날짜</li></ul>
+    <details><summary>예비금이 현재 금액보다 크면 어떻게 되나요?</summary><p>배분 가능액을 0원으로 처리하고, 예비금이 남은 금액보다 크다는 안내를 보여줍니다. 부족한 돈을 빌리거나 투자하라고 권하지 않습니다.</p></details>
+    <details><summary>입력한 금액이 저장되나요?</summary><p>아니요. 이 페이지는 입력값을 로컬 저장소나 서버에 기록하지 않습니다. 페이지를 닫으면 입력값은 사라집니다.</p></details>
+    <details><summary>하루 예산이 지출 가능액을 보장하나요?</summary><p>아니요. 사용자가 입력한 값으로 나눈 참고치입니다. 고정비, 자동 결제, 식비 외 필수 지출은 직접 반영해야 합니다.</p></details>
+    <p><a href="index.html#budget">이번 달 수입·지출 전체 보기</a> · <a href="toolbox.html#money">식비 하루 한도 계산</a></p>
+  </section>
+  <footer class="wrap foot">무료 참고 도구 · 오류나 개선 제안은 <a href="https://github.com/chicken7550/campus-gpa-planner/issues/new/choose">GitHub 제보 양식</a>으로 보내주세요. 공개 제보에 실제 예산을 적지 마세요.</footer>
+  <script>
+    const el=id=>document.getElementById(id), won=n=>new Intl.NumberFormat('ko-KR',{maximumFractionDigits:0}).format(Math.round(n))+'원';
+    let daily=null;
+    function calculate(){
+      const amount=el('remaining').value===''?null:Number(el('remaining').value);
+      const days=el('days').value===''?null:Number(el('days').value);
+      const reserve=el('reserve').value===''?0:Number(el('reserve').value);
+      if(amount===null||!Number.isFinite(amount)||amount<0||!Number.isInteger(days)||days<1||days>366||!Number.isFinite(reserve)||reserve<0){el('status').textContent='0원 이상의 금액, 1~366일 사이의 날짜를 확인해 주세요.';return;}
+      const available=Math.max(0,amount-reserve); daily=available/days;
+      el('dailyAmount').textContent=won(daily)+' / 일';
+      el('breakdown').textContent=`${won(amount)} − 예비금 ${won(reserve)} = ${won(available)} · ${days}일 기준`;
+      el('status').textContent=reserve>amount?'예비금이 현재 쓸 수 있는 금액보다 커서 하루 기준 예산을 0원으로 계산했어요.':'계산 완료. 입력값은 저장하거나 전송하지 않았어요.';
+      el('downloadCard').disabled=false; renderCard();
+    }
+    function renderCard(){el('cardResult').textContent=el('includeResult').checked&&daily!==null?won(daily)+' / 일':'내 하루 예산은 화면에서 확인';}
+    el('calculate').addEventListener('click',calculate);
+    el('sample').addEventListener('click',()=>{el('remaining').value='100000';el('days').value='8';el('reserve').value='0';calculate();});
+    el('includeResult').addEventListener('change',renderCard);
+    el('copyLink').addEventListener('click',async()=>{const text='남은 생활비와 날짜로 하루 기준 예산을 확인해 보세요. 공유할 때 계산 금액은 기본으로 숨겨집니다. https://chicken7550.github.io/campus-gpa-planner/daily-budget.html';try{await navigator.clipboard.writeText(text);el('shareStatus').textContent='금액이 포함되지 않은 공유 문구를 복사했어요.';}catch{el('shareStatus').textContent='복사 권한을 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
+    el('downloadCard').addEventListener('click',()=>{
+      if(daily===null)return;const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;const ctx=canvas.getContext('2d');
+      const g=ctx.createLinearGradient(0,0,1200,630);g.addColorStop(0,'#1e3650');g.addColorStop(1,'#10231f');ctx.fillStyle='#0b1220';ctx.fillRect(0,0,1200,630);ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(36,36,1128,558,34);ctx.fill();
+      ctx.fillStyle='#7ce4c2';ctx.font='700 27px system-ui';ctx.fillText('캠퍼스 툴킷  ·  월말 예산',90,120);ctx.fillStyle='#edf3fb';ctx.font='800 58px system-ui';ctx.fillText(el('includeResult').checked?won(daily)+' / 일':'내 하루 예산은 화면에서 확인',90,270);ctx.fillStyle='#d2deeb';ctx.font='400 28px system-ui';ctx.fillText('남은 금액과 날짜로 하루 기준을 세워보세요.',90,350);ctx.fillStyle='#a9b9ca';ctx.font='400 20px system-ui';ctx.fillText('계산 입력값은 공유하지 않습니다.',90,440);ctx.fillText('chicken7550.github.io/campus-gpa-planner/daily-budget.html',90,520);
+      const a=document.createElement('a');a.download='campus-toolkit-daily-budget.png';a.href=canvas.toDataURL('image/png');a.click();el('shareStatus').textContent=el('includeResult').checked?'계산 결과가 포함된 공유 카드를 저장했어요.':'금액을 숨긴 공유 카드를 저장했어요.';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chicken7550.github.io/campus-gpa-planner/sitemap.xml

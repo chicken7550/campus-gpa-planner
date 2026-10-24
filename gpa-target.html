@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="현재 누적 평점과 이수 학점, 다음 학기 신청 학점으로 목표 GPA에 필요한 평균을 역산하세요. 4.5·4.3 만점과 학점 가중 평균을 반영합니다.">
+  <meta name="theme-color" content="#101827"><link rel="canonical" href="https://chicken7550.github.io/campus-gpa-planner/gpa-target.html">
+  <meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="캠퍼스 툴킷"><meta property="og:type" content="website"><meta property="og:url" content="https://chicken7550.github.io/campus-gpa-planner/gpa-target.html"><meta property="og:title" content="목표 학점 역산 계산기 — 캠퍼스 툴킷"><meta property="og:description" content="다음 학기에 필요한 평균 평점을 학점 가중 방식으로 계산하세요."><meta name="twitter:card" content="summary">
+  <title>목표 학점 역산 계산기 — 다음 학기 필요한 평점 | 캠퍼스 툴킷</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1220;--surface:#141d2c;--line:#29384d;--text:#edf3fb;--muted:#9aabc0;--mint:#7ce4c2;--blue:#91b7ff;--warn:#ffcf8b}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182841 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--mint)}.wrap{width:min(850px,calc(100% - 32px));margin:auto}.top{padding:32px 0 20px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.12em}.top h1{font-size:clamp(30px,6vw,46px);line-height:1.1;letter-spacing:-.04em;margin:10px 0}.top p,.desc,.note{color:var(--muted)}.top p{max-width:680px;margin:0}.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.pill{border:1px solid #34445a;border-radius:999px;padding:4px 9px;color:var(--muted);font-size:11px}nav{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow:auto;padding:9px max(16px,calc((100vw - 850px)/2));background:#0c1220ed;border-bottom:1px solid var(--line)}nav a{white-space:nowrap;text-decoration:none;color:#c3cedd;border:1px solid #34445a;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700}.card{margin:18px auto;border:1px solid var(--line);border-radius:18px;padding:20px;background:linear-gradient(155deg,#1b2739fa,#141d2cfa);box-shadow:0 18px 50px #0002}.card h2{margin:0 0 7px;font-size:20px}.desc,.note{font-size:13px;margin:0 0 15px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;min-width:0}.field label{color:#bdc9d8;font-size:13px;font-weight:700}.field input,.field select{width:100%;min-width:0;padding:11px 12px;background:#101827;color:var(--text);border:1px solid #34445a;border-radius:10px;font:inherit}.field input:focus-visible,.field select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--mint);color:#09251e;font:inherit;font-weight:800;cursor:pointer}.btn.secondary{border:1px solid #354761;background:#25364d;color:var(--text)}.output{margin-top:15px;padding:16px;background:#101827;border:1px solid var(--line);border-radius:13px}.output span,.output small{display:block;color:var(--muted);font-size:12px}.output strong{display:block;margin:3px 0;font-size:clamp(26px,6vw,38px);letter-spacing:-.04em;color:var(--mint)}.status{min-height:22px;color:var(--warn);font-size:13px;margin:9px 0 0}.formula{padding:14px 16px;background:#101827;border:1px solid var(--line);border-radius:12px;overflow-x:auto}.faq details{padding:13px 0;border-top:1px solid var(--line)}.faq summary{cursor:pointer;font-weight:750}.faq details p{color:var(--muted);font-size:14px;margin-bottom:0}.foot{padding-bottom:28px;color:#8493a7;font-size:12px}@media(max-width:560px){.fields{grid-template-columns:1fr}.card{padding:16px}}
+  </style>
+</head>
+<body>
+  <header class="wrap top"><span class="eyebrow">캠퍼스 툴킷 · 학점 도구</span><h1>목표 학점에 도달하려면<br>다음 학기 평균이 얼마여야 할까?</h1><p>현재 누적 평점과 이수 학점, 다음 학기 신청 학점을 넣으면 목표 누적 GPA에 필요한 평균을 역산합니다.</p><div class="pills"><span class="pill">학점 가중 평균</span><span class="pill">4.5·4.3 만점</span><span class="pill">입력은 브라우저에서만 계산</span></div></header>
+  <nav aria-label="관련 도구"><a href="index.html">캠퍼스 툴킷</a><a href="daily-budget.html">월말 하루 예산</a><a href="index.html#grades">이번 학기 과목 평점</a><a href="resale-profit.html">중고 정산액</a></nav>
+  <main class="wrap">
+    <section class="card" aria-labelledby="calc-title"><h2 id="calc-title">다음 학기 필요한 평균 계산</h2><p class="desc">학점 기준은 학교 성적표에 맞춰 고르세요. 이수 학점이 0이면 현재 누적 평점은 입력하지 않아도 됩니다.</p>
+      <div class="fields">
+        <div class="field"><label for="scale">평점 기준</label><select id="scale"><option value="4.5">4.5 만점</option><option value="4.3">4.3 만점</option></select></div>
+        <div class="field"><label for="currentGpa">현재 누적 평점</label><input id="currentGpa" type="number" min="0" max="4.5" step="0.01" inputmode="decimal" placeholder="예: 3.20"></div>
+        <div class="field"><label for="currentCredits">현재 이수 학점</label><input id="currentCredits" type="number" min="0" step="0.5" inputmode="decimal" placeholder="예: 45"></div>
+        <div class="field"><label for="targetGpa">목표 누적 평점</label><input id="targetGpa" type="number" min="0" max="4.5" step="0.01" inputmode="decimal" placeholder="예: 3.50"></div>
+        <div class="field"><label for="nextCredits">다음 학기 신청 학점</label><input id="nextCredits" type="number" min="0.5" step="0.5" inputmode="decimal" placeholder="예: 18"></div>
+      </div>
+      <div class="actions"><button class="btn" id="calculate" type="button">필요 평균 계산</button><button class="btn secondary" id="sample" type="button">예시로 보기 · 3.20에서 3.50 목표</button></div>
+      <div class="output" aria-live="polite" aria-atomic="true"><span>다음 학기에 필요한 평균</span><strong id="needed">정보를 입력해 주세요</strong><small id="explanation">현재 이수 학점으로 가중 계산합니다.</small></div><p id="status" class="status" role="status" aria-live="polite"></p>
+      <p class="note">이 결과는 계획용 추정치입니다. P/F, 재수강, 성적 대체와 평점 반올림은 학교 규정에 따라 다를 수 있어요.</p>
+      <div class="actions"><button class="btn secondary" id="copyLink" type="button">개인 성적 없이 계산기 링크 복사</button></div><p id="shareStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+    <section class="card"><h2>계산식</h2><p class="desc">현재와 다음 학기의 성적을 학점으로 가중해 목표 누적 평점을 역산합니다.</p><div class="formula">필요 평균 = (목표 누적 평점 × (현재 이수 학점 + 다음 학기 학점) − 현재 누적 평점 × 현재 이수 학점) ÷ 다음 학기 학점</div><p class="note">예시: 4.5 만점에서 현재 3.20, 45학점 이수, 다음 학기 18학점이면 누적 3.50 목표에 필요한 평균은 4.25입니다.</p></section>
+    <section class="card faq"><h2>자주 묻는 질문</h2><details><summary>현재 이수 학점이 0학점이면 어떻게 계산하나요?</summary><p>현재 누적 평점은 0으로 보고, 목표 평점이 다음 학기 필요한 평균이 됩니다.</p></details><details><summary>필요 평균이 만점보다 높으면 무슨 뜻인가요?</summary><p>입력한 신청 학점만으로는 목표에 도달하기 어려울 수 있다는 뜻입니다. 더 긴 기간으로 목표를 나눠 보거나 학교 학사 기준을 확인하세요.</p></details><details><summary>계산값이 실제 성적을 보장하나요?</summary><p>아니요. 과목별 학점과 성적 처리 규정, 재수강 반영, 학교별 반올림 방식에 따라 실제 평점은 달라질 수 있습니다.</p></details><p><a href="index.html#grades">과목별 이번 학기 평점도 계산하기</a></p></section>
+  </main>
+  <footer class="wrap foot">무료 참고 도구 · <a href="https://github.com/chicken7550/campus-gpa-planner/issues/new/choose">오류 제보·개선 제안</a> · 제보는 공개되므로 실제 성적은 올리지 마세요.</footer>
+  <script>
+    const el=id=>document.getElementById(id);
+    function calculate(){
+      const scale=Number(el('scale').value),credits=el('currentCredits').value===''?null:Number(el('currentCredits').value),next=el('nextCredits').value===''?null:Number(el('nextCredits').value),target=el('targetGpa').value===''?null:Number(el('targetGpa').value),current=el('currentGpa').value===''?null:Number(el('currentGpa').value);
+      if(credits===null||next===null||target===null||!Number.isFinite(credits)||!Number.isFinite(next)||!Number.isFinite(target)||credits<0||next<=0||target<0||target>scale){el('status').textContent='평점 기준과 학점을 확인해 주세요. 다음 학기 학점은 0보다 커야 합니다.';return;}
+      if(credits>0&&(current===null||!Number.isFinite(current)||current<0||current>scale)){el('status').textContent='현재 이수 학점이 있으므로, 만점 범위 안의 현재 누적 평점을 입력해 주세요.';return;}
+      const old=credits===0?0:current,needed=(target*(credits+next)-old*credits)/next;
+      if(needed<=0){el('needed').textContent='0.00 이상';el('explanation').textContent='입력값 기준으로는 다음 학기 평균이 0.00이어도 목표 누적 평점 이상입니다.';el('status').textContent='학교의 성적 처리와 반올림 규정은 별도로 확인하세요.';return;}
+      el('needed').textContent=needed.toFixed(2)+' / '+scale.toFixed(1);
+      el('explanation').textContent=`현재 ${old.toFixed(2)} × ${credits}학점 · 다음 학기 ${next}학점 기준`;
+      el('status').textContent=needed>scale?'계산상 만점보다 높아요. 이번 학기만으로 목표를 맞추기 어렵다는 뜻입니다.':'계산 완료. 과목별 성적 조합과 학교 규정에 따라 실제 결과는 달라질 수 있어요.';
+    }
+    el('calculate').addEventListener('click',calculate);
+    el('sample').addEventListener('click',()=>{el('scale').value='4.5';el('currentGpa').value='3.20';el('currentCredits').value='45';el('targetGpa').value='3.50';el('nextCredits').value='18';calculate();});
+    el('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('다음 학기에 필요한 평균 평점을 학점 가중 방식으로 계산해 보세요. 입력값은 공유되지 않습니다. https://chicken7550.github.io/campus-gpa-planner/gpa-target.html');el('shareStatus').textContent='성적이 포함되지 않은 계산기 링크를 복사했어요.';}catch{el('shareStatus').textContent='복사 권한을 사용할 수 없어요. 주소를 직접 복사해 주세요.';}});
+  </script>
+</body>
+</html>

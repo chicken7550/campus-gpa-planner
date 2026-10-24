@@ -5,8 +5,12 @@
 ## 도구
 
 - [캠퍼스 툴킷](https://chicken7550.github.io/campus-gpa-planner/) — 학점·생활비·알바 급여·시험과 과제·장학금·집중 시간 관리
+- [월말 하루 예산](https://chicken7550.github.io/campus-gpa-planner/daily-budget.html) — 남은 생활비·예비금·남은 날짜로 하루 예산 계산
+- [목표 학점 역산](https://chicken7550.github.io/campus-gpa-planner/gpa-target.html) — 다음 학기에 필요한 평균 평점 계산
+- [중고 정산액](https://chicken7550.github.io/campus-gpa-planner/resale-profit.html) — 직접 입력한 요율과 비용으로 예상 정산액 계산
 - [추가 도구 모음](https://chicken7550.github.io/campus-gpa-planner/toolbox.html) — 등록금 준비액, 주거비 분담, 식비 한도, 지원 현황, 주간 공부 시간 배분
 - [AI 업무 프롬프트](https://chicken7550.github.io/campus-gpa-planner/workflows.html) — 학습·고객 응대·상품 소개·SNS 게시물용 프롬프트 초안 작성
+- [홍보 키트](attention-kit.md) — 세 계산 도구의 15초 영상 대본과 질문별 게시글 초안
 - [중고판매 도우미](https://chicken7550.github.io/campus-gpa-planner/resale-helper.html) — 판매글 초안, 직접 입력하는 비용 계산, 거래 전 체크리스트, 답장 문구
 - [이력서 작업실](https://chicken7550.github.io/campus-gpa-planner/resume-builder.html) — 이력서 미리보기, 사용자가 고른 공고 핵심어 확인, 인쇄·PDF 저장
 
@@ -31,11 +35,10 @@
 
 GitHub 저장소의 최상위에 정적 HTML 파일을 두고 GitHub Pages에서 main 브랜치의 루트를 배포합니다. 서버나 유료 API 없이 페이지를 제공합니다. 공개 저장소에는 비밀번호나 API 키를 올리지 마세요.
 
-## 수익 기능
-
-현재 페이지에는 결제, 광고, 제휴 링크가 연결되어 있지 않으며 자동 수익이 발생하지 않습니다. 방문자 수나 후원 전환도 수집하지 않습니다. 도구의 공개와 GitHub Sponsors 승인은 실제 방문·후원과 별개의 단계이며 수익을 보장하지 않습니다.
-
-
 ## 라이선스
 
 이 저장소의 코드와 문서는 MIT License로 공개합니다. 사용·수정·재배포 조건은 [LICENSE](LICENSE)를 확인하세요. MIT 라이선스는 상업적 재사용도 허용하므로, 유료 호스팅이나 별도 프리미엄 기능은 공개 코드와 분리해 제공하는 방식이 적합합니다.
+
+## 수익 기능
+
+현재 페이지에는 결제, 광고, 제휴 링크가 연결되어 있지 않으며 자동 수익이 발생하지 않습니다. 방문자 수나 후원 전환도 수집하지 않습니다. 도구의 공개와 GitHub Sponsors 승인은 실제 방문·후원과 별개의 단계이며 수익을 보장하지 않습니다.
