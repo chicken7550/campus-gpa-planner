@@ -2,9 +2,12 @@
 
 대학생이 학점과 생활 계획을 한곳에서 정리할 수 있는 무료 정적 웹 도구입니다. 별도 서버나 유료 API 없이 동작하며, 입력 내용은 사용자의 브라우저에만 저장됩니다.
 
-**공개 페이지:** https://chicken7550.github.io/campus-gpa-planner/  
+**공개 페이지:** https://chicken7550.github.io/campus-gpa-planner/
+
+**추가 도구 카테고리:** https://chicken7550.github.io/campus-gpa-planner/toolbox.html
+
 **AI 업무 프롬프트 도구:** https://chicken7550.github.io/campus-gpa-planner/workflows.html
-**돈·취업·공부 도구:** https://chicken7550.github.io/campus-gpa-planner/toolbox.html
+**별도 실험 도구 — 중고판매 도우미:** https://chicken7550.github.io/campus-gpa-planner/resale-helper.html
 
 ## 들어 있는 도구
 
@@ -18,16 +21,19 @@
 - 주간 목표·실행·장애물·다음 행동 자기 점검
 - AI 업무 프롬프트 생성, 복사·Markdown 다운로드, 즐겨찾기 저장
 - 인쇄 및 PDF 저장, 페이지 주소 복사
-- 등록금 부족분과 월별 준비 목표 계산
-- 주거비 분담 및 잔여 식비 하루 한도 계산
-- 취업 지원 현황 기록 (브라우저 내 저장)
-- 중요도 비율에 따른 주간 공부 시간 배분
+- 등록금 부족분·월별 준비액 계산
+- 월세·공과금 균등 분담
+- 남은 식비의 하루 한도 계산
+- 취업 지원 현황을 브라우저에 기록
+- 중요도별 주간 공부 시간 배분
 
 `workflows.html`에서 학습 계획, 고객 문의, 상품 소개, SNS 게시물용 프롬프트를 입력값에 맞춰 만들 수 있습니다. AI API를 호출하지 않으며, 즐겨찾기는 브라우저에만 저장됩니다.
 
+`toolbox.html`에서 돈·생활, 취업·진로, 공부 계획 카테고리의 추가 도구를 이용할 수 있습니다. 도구 입력과 지원 현황은 현재 브라우저 안에서만 처리합니다.
+
 ## 무료 배포
 
-1. GitHub 저장소의 최상위에 `index.html`, `workflows.html`, `toolbox.html`, `README.md`를 올립니다.
+1. GitHub 저장소의 최상위에 `index.html`, `workflows.html`, `README.md`를 올립니다.
 2. **Settings → Pages**에서 `Deploy from a branch`, `main`, `/(root)`를 선택합니다.
 3. 생성된 `github.io` 주소를 열어 페이지가 배포됐는지 확인합니다.
 
@@ -46,3 +52,7 @@
 ## 개선 점검 순서
 
 방문자 수와 후원 전환을 확인할 수 있는 데이터 수집은 아직 연결돼 있지 않습니다. 따라서 실제 성과를 추측하지 말고, 매주 GitHub Pages 배포 상태·사용자 의견·승인 상태를 확인해 개선을 결정하세요. 후원 설정이 승인되기 전에는 작동하지 않는 결제 버튼을 넣지 않습니다.
+
+## 별도 실험 도구
+
+resale-helper.html은 캠퍼스 툴킷과 별도로 안 쓰는 물건을 판매할 때 쓰는 무료 도구입니다. 판매글 초안 작성, 사용자가 직접 입력하는 수수료·배송비 계산, 거래 전 안전 체크, 답장 문구 복사를 지원합니다. 입력은 브라우저에만 저장되며 거래 앱·결제 서비스와 연동되지 않습니다. 도구 자체가 판매를 중개하거나 자동 수익을 만들지는 않습니다.
